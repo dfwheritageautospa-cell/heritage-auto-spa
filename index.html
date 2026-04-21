@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heritage Auto Spa | Mobile Detailing · Colleyville, TX</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red:        #D42B2B;
+      --red-bright: #FF3333;
+      --red-dim:    rgba(212,43,43,0.15);
+      --silver:     #C0C0C0;
+      --silver-dim: rgba(192,192,192,0.15);
+      --chrome:     #E8E8E8;
+      --black:      #080808;
+      --black-2:    #0F0F0F;
+      --black-3:    #161616;
+      --black-4:    #1E1E1E;
+      --white:      #F0F0F0;
+      --white-dim:  rgba(240,240,240,0.55);
+      --white-faint:rgba(240,240,240,0.07);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 68px;
+      background: rgba(8,8,8,0.96);
+      border-bottom: 1px solid rgba(212,43,43,0.25);
+      backdrop-filter: blur(10px);
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-bottom-color: var(--red); }
+
+    .nav-logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(192,192,192,0.3); }
+    .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; line-height: 1; }
+    .nav-logo-text span { color: var(--red); display: block; }
+    .nav-logo-text small { color: var(--silver); font-size: 10px; letter-spacing: 4px; display: block; }
+
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--white-dim); text-decoration: none; transition: color 0.2s; font-weight: 500; }
+    .nav-links a:hover { color: var(--red); }
+
+    .nav-cta { background: var(--red); color: var(--white); padding: 10px 26px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-weight: 600; font-family: 'Barlow Condensed', sans-serif; transition: background 0.2s, transform 0.15s; border: 1px solid var(--red); }
+    .nav-cta:hover { background: var(--red-bright); transform: translateY(-1px); }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--black); }
+
+    .hero-bg-grad {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 50% 30%, rgba(212,43,43,0.13) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 80% 70%, rgba(212,43,43,0.06) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 10% 80%, rgba(192,192,192,0.04) 0%, transparent 50%);
+    }
+
+    .hero-lines { position: absolute; inset: 0; overflow: hidden; opacity: 0.04; }
+    .hero-lines::before {
+      content: ''; position: absolute; inset: -100%;
+      background: repeating-linear-gradient(60deg, transparent, transparent 60px, rgba(212,43,43,1) 60px, rgba(212,43,43,1) 61px);
+      animation: slidelines 18s linear infinite;
+    }
+    @keyframes slidelines { from { transform: translateX(0); } to { transform: translateX(120px); } }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: center;
+      max-width: 1200px; width: 100%;
+      padding: 120px 48px 80px;
+    }
+
+    .hero-left { animation: fadeUp 0.9s ease both; }
+
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--silver); margin-bottom: 20px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 30px; height: 1px; background: var(--red); }
+
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 9vw, 110px); line-height: 0.9; letter-spacing: 3px; margin-bottom: 8px; }
+    .hero-title .line-red { color: var(--red); display: block; }
+    .hero-title .line-white { color: var(--white); display: block; }
+    .hero-title .line-silver { color: transparent; -webkit-text-stroke: 1px var(--silver); display: block; }
+
+    .hero-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(15px, 1.8vw, 19px); color: var(--white-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 40px; }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .btn-red { background: var(--red); color: var(--white); padding: 15px 36px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; transition: all 0.2s; display: inline-block; border: 1px solid var(--red); }
+    .btn-red:hover { background: var(--red-bright); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,43,43,0.4); }
+
+    .btn-outline { border: 1px solid rgba(192,192,192,0.4); color: var(--silver); padding: 15px 36px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; transition: all 0.2s; display: inline-block; }
+    .btn-outline:hover { border-color: var(--silver); background: var(--silver-dim); color: var(--chrome); }
+
+    .hero-right { display: flex; align-items: center; justify-content: center; animation: fadeUp 0.9s 0.2s ease both; }
+
+    .logo-display { position: relative; width: clamp(260px, 40vw, 420px); aspect-ratio: 1; }
+    .logo-display img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 0 40px rgba(212,43,43,0.35)) drop-shadow(0 0 80px rgba(212,43,43,0.15)); animation: pulse-glow 4s ease-in-out infinite; }
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 40px rgba(212,43,43,0.35)) drop-shadow(0 0 80px rgba(212,43,43,0.15)); }
+      50%       { filter: drop-shadow(0 0 55px rgba(212,43,43,0.5))  drop-shadow(0 0 100px rgba(212,43,43,0.25)); }
+    }
+
+    .hero-ring { position: absolute; inset: -20px; border-radius: 50%; border: 1px solid rgba(212,43,43,0.2); animation: spin 20s linear infinite; }
+    .hero-ring-2 { position: absolute; inset: -36px; border-radius: 50%; border: 1px dashed rgba(192,192,192,0.1); animation: spin 30s linear infinite reverse; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+    .hero-scroll-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(240,240,240,0.3); }
+    .hero-scroll-hint::after { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, var(--red), transparent); }
+
+    /* STRIP */
+    .strip { background: var(--red); overflow: hidden; display: flex; height: 44px; align-items: center; }
+    .strip-track { display: flex; animation: marquee 22s linear infinite; white-space: nowrap; }
+    .strip-item { display: flex; align-items: center; gap: 10px; padding: 0 32px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--white); font-weight: 600; }
+    .strip-item::after { content: '◆'; font-size: 7px; opacity: 0.6; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* SHARED */
+    section { padding: 96px 48px; }
+
+    .section-label { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); margin-bottom: 12px; font-weight: 600; display: flex; align-items: center; gap: 10px; }
+    .section-label::before { content: ''; width: 24px; height: 2px; background: var(--red); }
+
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 68px); line-height: 0.95; letter-spacing: 2px; color: var(--white); margin-bottom: 20px; }
+    .section-title .red { color: var(--red); }
+
+    .section-body { font-size: 15px; line-height: 1.8; color: var(--white-dim); max-width: 500px; font-weight: 300; }
+
+    /* ABOUT */
+    #about { background: var(--black-2); display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+
+    .about-visual { position: relative; display: flex; align-items: center; justify-content: center; min-height: 400px; }
+    .about-logo-large { width: clamp(240px, 35vw, 360px); aspect-ratio: 1; position: relative; z-index: 2; }
+    .about-logo-large img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 32px rgba(212,43,43,0.3)); }
+
+    .about-corner-stat { position: absolute; background: var(--red); padding: 20px 24px; font-family: 'Bebas Neue', sans-serif; }
+    .about-corner-stat.tl { top: 0; left: 0; }
+    .about-corner-stat.br { bottom: 0; right: 0; }
+    .about-corner-stat .big { font-size: 40px; line-height: 1; color: var(--white); }
+    .about-corner-stat .sm { font-size: 10px; letter-spacing: 2px; color: rgba(255,255,255,0.7); text-transform: uppercase; font-family: 'Barlow Condensed', sans-serif; }
+
+    .about-stats { display: flex; gap: 24px; margin-top: 40px; flex-wrap: wrap; }
+    .astat { padding: 18px 22px; background: var(--black-3); border-top: 2px solid var(--red); }
+    .astat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--red); line-height: 1; }
+    .astat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--white-dim); font-family: 'Barlow Condensed', sans-serif; }
+
+    /* SERVICES */
+    #services { background: var(--black); }
+    .services-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: end; margin-bottom: 56px; }
+
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .svc-category { grid-column: 1 / -1; padding: 20px 0 8px; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); border-top: 1px solid rgba(212,43,43,0.25); display: flex; align-items: center; gap: 12px; }
+    .svc-category::after { content: ''; flex: 1; height: 1px; background: rgba(212,43,43,0.15); }
+    .svc-category:first-child { border-top: none; padding-top: 0; }
+    .svc-pricing { margin-top: 18px; display: flex; flex-direction: column; gap: 6px; }
+    .svc-price-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; padding: 6px 0; border-bottom: 1px solid var(--white-faint); }
+    .svc-price-row:last-child { border: none; }
+    .svc-price-type { color: var(--white-dim); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
+    .svc-price-val { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 1px; }
+    .svc-price-time { color: rgba(240,240,240,0.3); font-size: 10px; }
+
+    .svc-card { background: var(--black-2); padding: 44px 32px; position: relative; overflow: hidden; border-bottom: 3px solid transparent; transition: border-color 0.35s, background 0.3s; }
+    .svc-card:hover { background: var(--black-3); border-bottom-color: var(--red); }
+    .svc-card::before { content: attr(data-num); position: absolute; top: 16px; right: 20px; font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: var(--white-faint); line-height: 1; pointer-events: none; transition: color 0.3s; }
+    .svc-card:hover::before { color: rgba(212,43,43,0.08); }
+
+    .svc-icon { font-size: 28px; margin-bottom: 16px; }
+    .svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: 2px; color: var(--white); margin-bottom: 10px; }
+    .svc-desc { font-size: 13px; line-height: 1.75; color: var(--white-dim); margin-bottom: 20px; }
+    .svc-list { list-style: none; }
+    .svc-list li { font-size: 12px; color: var(--white-dim); padding: 5px 0; border-bottom: 1px solid var(--white-faint); display: flex; align-items: center; gap: 8px; }
+    .svc-list li::before { content: '—'; color: var(--red); font-size: 10px; flex-shrink: 0; }
+    .svc-badge { display: inline-block; margin-top: 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); border: 1px solid rgba(212,43,43,0.35); padding: 4px 12px; font-weight: 600; }
+
+    /* PROCESS */
+    #process { background: var(--black-2); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+
+    .pstep { display: flex; gap: 20px; padding: 28px 0; border-bottom: 1px solid var(--white-faint); }
+    .pstep:last-child { border: none; }
+    .pnum { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: rgba(212,43,43,0.2); min-width: 54px; transition: color 0.3s; }
+    .pstep:hover .pnum { color: var(--red); }
+    .ptitle { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; color: var(--white); font-weight: 600; margin-bottom: 6px; padding-top: 10px; }
+    .pdesc { font-size: 13px; line-height: 1.75; color: var(--white-dim); }
+
+    /* GALLERY */
+    #gallery { background: var(--black); }
+    .gallery-head { margin-bottom: 40px; }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 200px; gap: 4px; }
+    .gitem { background: var(--black-3); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .gitem.big { grid-column: span 2; grid-row: span 2; }
+    .gph { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(212,43,43,0.25); text-align: center; line-height: 1.8; }
+    .gitem::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(212,43,43,0.5) 0%, transparent 50%); opacity: 0; transition: opacity 0.3s; }
+    .gitem:hover::after { opacity: 1; }
+    .glabel { position: absolute; bottom: 12px; left: 16px; z-index: 2; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--white); opacity: 0; transform: translateY(6px); transition: all 0.3s; }
+    .gitem:hover .glabel { opacity: 1; transform: translateY(0); }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--black-2); }
+    .t-head { margin-bottom: 52px; }
+
+    .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+    .rcard { background: var(--black-3); padding: 36px 28px; position: relative; overflow: hidden; transition: background 0.3s; }
+    .rcard:hover { background: var(--black-4); }
+    .rcard::before { content: '"'; font-family: 'Bebas Neue', sans-serif; font-size: 100px; color: rgba(212,43,43,0.08); position: absolute; top: 8px; right: 16px; line-height: 1; pointer-events: none; }
+    .rstars { color: var(--red); font-size: 14px; letter-spacing: 1px; margin-bottom: 14px; }
+    .rtext { font-size: 14px; line-height: 1.8; color: var(--white-dim); font-style: italic; margin-bottom: 20px; }
+    .rauthor { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--white); font-weight: 600; }
+    .rtype { font-size: 10px; letter-spacing: 1px; color: rgba(212,43,43,0.6); margin-top: 2px; }
+
+    /* CONTACT */
+    #contact { background: var(--black); display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+
+    .cinfo-item { display: flex; gap: 16px; padding: 22px 0; border-bottom: 1px solid var(--white-faint); }
+    .cinfo-item:last-of-type { border: none; }
+    .cicon { width: 42px; height: 42px; background: var(--red-dim); border: 1px solid rgba(212,43,43,0.25); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .clabel { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); margin-bottom: 4px; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; }
+    .cval { font-size: 15px; color: var(--white); }
+    .cval a { color: var(--white); text-decoration: none; transition: color 0.2s; }
+    .cval a:hover { color: var(--red); }
+
+    .cform { display: flex; flex-direction: column; gap: 14px; }
+    .fg { display: flex; flex-direction: column; gap: 6px; }
+    .fg label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--silver); font-family: 'Barlow Condensed', sans-serif; font-weight: 600; }
+    .fg input, .fg select, .fg textarea { background: var(--black-3); border: 1px solid rgba(192,192,192,0.15); color: var(--white); padding: 13px 16px; font-size: 14px; font-family: 'Barlow', sans-serif; outline: none; transition: border-color 0.2s; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--red); }
+    .fg select option { background: var(--black-3); }
+    .fg textarea { resize: vertical; min-height: 96px; }
+    .frow { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .fsub { background: var(--red); color: var(--white); border: none; padding: 15px 32px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; transition: all 0.2s; align-self: flex-start; margin-top: 6px; }
+    .fsub:hover { background: var(--red-bright); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--black-2); border-top: 1px solid rgba(212,43,43,0.2); padding: 56px 48px 28px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid var(--white-faint); margin-bottom: 28px; }
+    .fbrand-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-bottom: 14px; }
+    .fbrand-logo img { width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(212,43,43,0.4); }
+    .fbrand-logo-txt { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 3px; }
+    .fbrand-logo-txt span { color: var(--red); display: block; line-height: 1.1; }
+    .fbrand-logo-txt small { color: var(--silver); font-size: 9px; letter-spacing: 3px; }
+    .fbrand p { font-size: 13px; color: var(--white-dim); line-height: 1.7; max-width: 240px; }
+    .flinks h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--red); margin-bottom: 18px; font-weight: 600; }
+    .flinks ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .flinks ul a { font-size: 13px; color: var(--white-dim); text-decoration: none; transition: color 0.2s; }
+    .flinks ul a:hover { color: var(--red); }
+    .footer-bot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(240,240,240,0.25); flex-wrap: wrap; gap: 8px; }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 960px) {
+      nav { padding: 0 20px; }
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 64px 20px; }
+      .hero-content { grid-template-columns: 1fr; gap: 40px; text-align: center; padding: 110px 20px 60px; }
+      .hero-actions { justify-content: center; }
+      .hero-eyebrow { justify-content: center; }
+      .hero-right { order: -1; }
+      .logo-display { width: 220px; }
+      #about, #process, #contact { grid-template-columns: 1fr; gap: 48px; }
+      .about-corner-stat { display: none; }
+      .about-logo-large { max-width: 280px; }
+      .services-intro { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+      .gitem.big { grid-column: span 2; grid-row: span 1; }
+      .reviews-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .fbrand { grid-column: span 2; }
+      .frow { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 480px) {
+      .about-stats { flex-direction: column; }
+      .footer-top { grid-template-columns: 1fr; }
+      .fbrand { grid-column: span 1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo-wrap">
+    <img src="logo.png" alt="Heritage Auto Spa" class="nav-logo-img"/>
+    <div class="nav-logo-text"><span>Heritage</span><small>Auto Spa</small></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#testimonials">Reviews</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="nav-cta">Book Now</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grad"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Colleyville, TX · DFW Metroplex</div>
+      <h1 class="hero-title">
+        <span class="line-red">Heritage</span>
+        <span class="line-white">Auto</span>
+        <span class="line-silver">Spa</span>
+      </h1>
+      <p class="hero-tagline">Mobile Detailing · We Come to You</p>
+      <div class="hero-actions">
+        <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="btn-red">Book Your Detail</a>
+        <a href="#services" class="btn-outline">View Services</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="logo-display">
+        <div class="hero-ring"></div>
+        <div class="hero-ring-2"></div>
+        <img src="logo.png" alt="Heritage Auto Spa"/>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">Scroll</div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-track">
+    <div class="strip-item">Mobile Service</div>
+    <div class="strip-item">DFW Metroplex</div>
+    <div class="strip-item">Interior &amp; Exterior</div>
+    <div class="strip-item">Subscription Plans</div>
+    <div class="strip-item">Colleyville TX</div>
+    <div class="strip-item">Same-Week Booking</div>
+    <div class="strip-item">Since 2025</div>
+    <div class="strip-item">Mobile Service</div>
+    <div class="strip-item">DFW Metroplex</div>
+    <div class="strip-item">Interior &amp; Exterior</div>
+    <div class="strip-item">Subscription Plans</div>
+    <div class="strip-item">Colleyville TX</div>
+    <div class="strip-item">Same-Week Booking</div>
+    <div class="strip-item">Since 2025</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-visual reveal">
+    <div class="about-corner-stat tl"><div class="big">5★</div><div class="sm">Rated</div></div>
+    <div class="about-logo-large"><img src="logo.png" alt="Heritage Auto Spa Logo"/></div>
+    <div class="about-corner-stat br"><div class="big">DFW</div><div class="sm">Coverage</div></div>
+  </div>
+  <div class="reveal">
+    <div class="section-label">About Heritage</div>
+    <h2 class="section-title">Detail Done Right,<br><span class="red">At Your Door</span></h2>
+    <p class="section-body">Heritage Auto Spa is a professional mobile detailing service based in Colleyville, TX, serving the entire DFW Metroplex. We bring everything to you — no drop-off, no waiting rooms, no hassle.</p>
+    <p class="section-body" style="margin-top:14px;">From a quick refresh to a full inside-and-out transformation, every detail is done by hand with professional-grade products. Your car is an investment. We treat it like one.</p>
+    <div class="about-stats">
+      <div class="astat"><div class="astat-num">100%</div><div class="astat-label">Mobile</div></div>
+      <div class="astat"><div class="astat-num">DFW</div><div class="astat-label">Coverage</div></div>
+      <div class="astat"><div class="astat-num">5★</div><div class="astat-label">Reviews</div></div>
+      <div class="astat"><div class="astat-num">2025</div><div class="astat-label">Est.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-intro">
+    <div class="reveal">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Our <span class="red">Services</span></h2>
+      <p class="section-body">12 packages across interior, exterior, full detail, paint correction, ceramic coating, and monthly maintenance. Priced by vehicle size.</p>
+    </div>
+    <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="btn-red reveal" style="align-self:flex-end;">Book a Service →</a>
+  </div>
+  <div class="services-grid">
+
+    <!-- INTERIOR -->
+    <div class="svc-category">Interior Services</div>
+
+    <div class="svc-card reveal" data-num="01">
+      <div class="svc-icon">🪟</div>
+      <div class="svc-name">Interior Detail — Standard</div>
+      <p class="svc-desc">A lighter interior refresh for vehicles that just need a quick clean-up. Ideal for well-maintained rides. 1 hr 30 min+</p>
+      <ul class="svc-list">
+        <li>Blow out carpet and mats</li>
+        <li>Dust &amp; vacuum</li>
+        <li>Spot clean seats/carpets</li>
+        <li>Clean and sanitize all surfaces</li>
+        <li>Clean windows</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$50</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$60</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$70</span></div>
+      </div>
+    </div>
+
+    <div class="svc-card reveal" data-num="02">
+      <div class="svc-icon">🛋️</div>
+      <div class="svc-name">Interior Detail — Premium</div>
+      <p class="svc-desc">Deep clean that removes embedded dirt, odors, and buildup. Improves comfort and overall air quality. 2 hr 30 min+</p>
+      <ul class="svc-list">
+        <li>Blow out carpet and mats</li>
+        <li>Dust / vacuum</li>
+        <li>Plastic / vinyl wipe down</li>
+        <li>Sanitize and clean all surfaces</li>
+        <li>Clean seats &amp; carpet</li>
+        <li>Interior windows &amp; surface protectant</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$80</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$90</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$100</span></div>
+      </div>
+    </div>
+
+    <!-- placeholder for grid alignment -->
+    <div style="background:transparent;"></div>
+
+    <!-- EXTERIOR -->
+    <div class="svc-category">Exterior Services</div>
+
+    <div class="svc-card reveal" data-num="03">
+      <div class="svc-icon">✨</div>
+      <div class="svc-name">Exterior Detail — Standard</div>
+      <p class="svc-desc">Clean, polished look without extensive decontamination. Removes surface dirt and adds short-term protection. 1 hr 15 min+</p>
+      <ul class="svc-list">
+        <li>Foam bath &amp; hand wash</li>
+        <li>Wheel cleaning</li>
+        <li>Bug removal</li>
+        <li>Trim restore</li>
+        <li>Tire dressing</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$50</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$60</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$70</span></div>
+      </div>
+    </div>
+
+    <div class="svc-card reveal" data-num="04">
+      <div class="svc-icon">🚘</div>
+      <div class="svc-name">Exterior Detail — Premium</div>
+      <p class="svc-desc">Restores your exterior by safely removing contaminants that dull paint and reduce protection. Improves gloss and curb appeal. 2 hr+</p>
+      <ul class="svc-list">
+        <li>Foam bath &amp; hand wash</li>
+        <li>Deep wheel cleaning</li>
+        <li>Bug removal &amp; iron fall out removal</li>
+        <li>Ceramic spray sealant</li>
+        <li>Trim protection &amp; ceramic tire dressing</li>
+        <li>1 month ceramic spray sealant</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$70</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$80</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$90</span></div>
+      </div>
+    </div>
+
+    <!-- placeholder -->
+    <div style="background:transparent;"></div>
+
+    <!-- FULL DETAIL -->
+    <div class="svc-category">Full Detail Packages</div>
+
+    <div class="svc-card reveal" data-num="05">
+      <div class="svc-icon">🔧</div>
+      <div class="svc-name">Full Detail — Standard</div>
+      <p class="svc-desc">Safely cleans the exterior while refreshing the interior. Light protection to maintain your vehicle between deeper details. 3 hr 30 min+</p>
+      <ul class="svc-list">
+        <li>Blow out carpet/mats, dust &amp; vacuum</li>
+        <li>Spot clean seats/carpets &amp; all surfaces</li>
+        <li>Clean windows</li>
+        <li>Foam bath &amp; hand wash</li>
+        <li>Wheel cleaning, bug removal</li>
+        <li>Trim restore &amp; tire dressing</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$120</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$140</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$160</span></div>
+      </div>
+    </div>
+
+    <div class="svc-card reveal" data-num="06">
+      <div class="svc-icon">🏆</div>
+      <div class="svc-name">Full Detail — Premium</div>
+      <p class="svc-desc">Recommended for first-time clients. A complete interior &amp; exterior restoration designed to reset your vehicle's condition. 4 hr+</p>
+      <ul class="svc-list">
+        <li>Full interior — vacuum, wipe down, sanitize, seats &amp; carpet, surface protectant</li>
+        <li>Foam bath, deep wheel clean, bug removal</li>
+        <li>Iron fall out removal</li>
+        <li>Ceramic spray sealant &amp; trim protection</li>
+        <li>Ceramic tire dressing</li>
+        <li>1 month ceramic spray sealant</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$160</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$180</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$200</span></div>
+      </div>
+      <span class="svc-badge">Most Popular</span>
+    </div>
+
+    <!-- placeholder -->
+    <div style="background:transparent;"></div>
+
+    <!-- PAINT -->
+    <div class="svc-category">Paint Services</div>
+
+    <div class="svc-card reveal" data-num="07">
+      <div class="svc-icon">💡</div>
+      <div class="svc-name">Paint Correction</div>
+      <p class="svc-desc">Removes light swirl marks, minor scratches, and oxidation while restoring gloss. Single-step machine polish removes 40–60% of paint imperfections. 4 hr 30 min+</p>
+      <ul class="svc-list">
+        <li>Machine polish — single step</li>
+        <li>Swirl mark &amp; light scratch removal</li>
+        <li>Oxidation correction</li>
+        <li>Restores depth and clarity</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$225</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$250</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$275</span></div>
+      </div>
+    </div>
+
+    <div class="svc-card reveal" data-num="08">
+      <div class="svc-icon">🛡️</div>
+      <div class="svc-name">3-Year Ceramic Coating</div>
+      <p class="svc-desc">Professional ceramic coating after full wash and paint prep. Bonds to paint creating a durable hydrophobic layer — repels water, dirt, and protects for up to 3 years. 4 hr+</p>
+      <ul class="svc-list">
+        <li>Full wash &amp; paint preparation</li>
+        <li>Professional ceramic coat application</li>
+        <li>Hydrophobic protection layer</li>
+        <li>Up to 3 years of protection</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$375</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$425</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$500</span></div>
+      </div>
+    </div>
+
+    <div class="svc-card reveal" data-num="09">
+      <div class="svc-icon">💎</div>
+      <div class="svc-name">Paint Correction + Ceramic Bundle</div>
+      <p class="svc-desc">Complete paint enhancement and protection. Machine polish removes defects, then ceramic coating locks in the gloss with long-lasting protection. 6 hr+</p>
+      <ul class="svc-list">
+        <li>Single-step machine polish</li>
+        <li>Removes light defects &amp; restores shine</li>
+        <li>3-year ceramic coating applied</li>
+        <li>Water repellency &amp; easier maintenance</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$550</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$650</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$750</span></div>
+      </div>
+      <span class="svc-badge">Best Value</span>
+    </div>
+
+    <!-- MONTHLY -->
+    <div class="svc-category">Monthly Maintenance VIP</div>
+
+    <div class="svc-card reveal" data-num="10">
+      <div class="svc-icon">📅</div>
+      <div class="svc-name">Monthly Maintenance — Standard</div>
+      <p class="svc-desc">Keeps your vehicle consistently maintained throughout the year. Prevents heavy buildup while keeping it looking fresh. 3 hr+</p>
+      <ul class="svc-list">
+        <li>Interior: vacuum, spot clean, surfaces, windows</li>
+        <li>Foam bath, wheel cleaning, bug removal</li>
+        <li>Trim restore &amp; tire dressing</li>
+        <li>1 month ceramic protection</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$85</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$105</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$125</span></div>
+      </div>
+    </div>
+
+    <div class="svc-card reveal" data-num="11">
+      <div class="svc-icon">⭐</div>
+      <div class="svc-name">Monthly Maintenance — Premium</div>
+      <p class="svc-desc">VIP-level monthly maintenance. Full interior &amp; exterior care every month — your vehicle always looks its best. 3 hr+</p>
+      <ul class="svc-list">
+        <li>Full interior — vacuum, wipe down, sanitize, seats, carpet, protectant</li>
+        <li>Foam bath, deep wheel clean, bug removal</li>
+        <li>Iron fall out removal</li>
+        <li>Ceramic spray sealant &amp; tire dressing</li>
+        <li>1 month ceramic spray sealant</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$140</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$160</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$180</span></div>
+      </div>
+    </div>
+
+    <!-- ADD ONS -->
+    <div class="svc-category">Add-On Services</div>
+
+    <div class="svc-card reveal" data-num="12">
+      <div class="svc-icon">➕</div>
+      <div class="svc-name">Add-On Services</div>
+      <p class="svc-desc">Customize any package with these individual add-ons. 30 min+ each.</p>
+      <ul class="svc-list">
+        <li>Pet hair removal — $50</li>
+        <li>Carpet deep clean — $50</li>
+        <li>Seat deep clean — $50</li>
+        <li>Leather seat conditioner — $35</li>
+        <li>Engine detail — $40</li>
+        <li>Headlight restoration — ask for pricing</li>
+        <li>Interior ceramic — ask for pricing</li>
+      </ul>
+      <span class="svc-badge">Mix &amp; Match</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="reveal">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Simple as<br><span class="red">1, 2, 3</span></h2>
+    <p class="section-body">No drop-off. No waiting. We handle everything at your location while you get on with your day.</p>
+    <div style="margin-top:36px;"><a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="btn-red">Schedule Online</a></div>
+  </div>
+  <div class="reveal">
+    <div class="pstep"><div class="pnum">01</div><div><div class="ptitle">Book Online</div><p class="pdesc">Pick your service and a time that works for you. Confirmation is instant and booking takes less than 2 minutes.</p></div></div>
+    <div class="pstep"><div class="pnum">02</div><div><div class="ptitle">We Come to You</div><p class="pdesc">Our fully equipped mobile unit shows up at your home, office, or wherever your vehicle is parked. No drop-off needed.</p></div></div>
+    <div class="pstep"><div class="pnum">03</div><div><div class="ptitle">Drive Away Spotless</div><p class="pdesc">We handle everything. You come back to a clean, detailed vehicle ready to roll — no effort on your end.</p></div></div>
+    <div class="pstep"><div class="pnum">04</div><div><div class="ptitle">Stay on a Plan</div><p class="pdesc">Love the results? Lock in a subscription plan and keep your vehicle looking this good every single month.</p></div></div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="gallery-head reveal">
+    <div class="section-label">Our Work</div>
+    <h2 class="section-title">Results That<br><span class="red">Speak for Themselves</span></h2>
+  </div>
+  <div class="gallery-grid reveal">
+    <div class="gitem big"><div class="gph">📷<br>Before / After<br>Feature Shot</div><div class="glabel">Full Detail — Before &amp; After</div></div>
+    <div class="gitem"><div class="gph">📷<br>Interior</div><div class="glabel">Interior Detail</div></div>
+    <div class="gitem"><div class="gph">📷<br>Exterior</div><div class="glabel">Exterior Shine</div></div>
+    <div class="gitem"><div class="gph">📷<br>Wheels</div><div class="glabel">Wheel Detail</div></div>
+    <div class="gitem"><div class="gph">📷<br>Dashboard</div><div class="glabel">Interior Restore</div></div>
+    <div class="gitem"><div class="gph">📷<br>Paint</div><div class="glabel">Paint Finish</div></div>
+  </div>
+  <p style="text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(212,43,43,0.4);margin-top:28px;" class="reveal">Replace placeholders with your actual before/after photos</p>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="t-head reveal">
+    <div class="section-label">Client Reviews</div>
+    <h2 class="section-title">What Our<br><span class="red">Clients Say</span></h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="rcard reveal">
+      <div class="rstars">★★★★★</div>
+      <p class="rtext">He did an amazing job on my car. Super professional, on time, and the interior looks brand new. Already booked him again for next month.</p>
+      <div class="rauthor">Sarah M.</div>
+      <div class="rtype">Gold Package · Plano, TX</div>
+    </div>
+    <div class="rcard reveal">
+      <div class="rstars">★★★★★</div>
+      <p class="rtext">Had pet hair everywhere from my dogs — completely gone after the Super Interior. The convenience of not having to go anywhere is unbeatable.</p>
+      <div class="rauthor">Marcus T.</div>
+      <div class="rtype">Super Interior · Frisco, TX</div>
+    </div>
+    <div class="rcard reveal">
+      <div class="rstars">★★★★★</div>
+      <p class="rtext">On the monthly subscription now. My car consistently looks better than it ever has. Highly recommend Heritage if you're in DFW.</p>
+      <div class="rauthor">Jess R.</div>
+      <div class="rtype">Monthly Subscription · Dallas, TX</div>
+    </div>
+  </div>
+  <p style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(212,43,43,0.4);margin-top:32px;text-align:center;" class="reveal">Swap in your real Google or Square reviews</p>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="reveal">
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title">Ready to<br><span class="red">Book?</span></h2>
+    <p class="section-body">Questions about a service or want a custom package? Reach out — we get back fast.</p>
+    <div style="margin-top:40px;">
+      <div class="cinfo-item"><div class="cicon">📍</div><div><div class="clabel">Service Area</div><div class="cval">Colleyville, TX &amp; DFW Metroplex</div></div></div>
+      <div class="cinfo-item"><div class="cicon">📱</div><div><div class="clabel">Phone / Text</div><div class="cval"><a href="tel:+16824179435">(682) 417-9435</a></div></div></div>
+      <div class="cinfo-item"><div class="cicon">✉️</div><div><div class="clabel">Email</div><div class="cval"><a href="mailto:dfwheritageautospa@gmail.com">dfwheritageautospa@gmail.com</a></div></div></div>
+      <div class="cinfo-item"><div class="cicon">🗓</div><div><div class="clabel">Book Online</div><div class="cval"><a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank">Click here to schedule</a></div></div></div>
+    </div>
+  </div>
+  <div class="cform reveal">
+    <p style="font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:20px;font-family:'Barlow Condensed',sans-serif;font-weight:600;">Send a Message</p>
+    <div class="frow">
+      <div class="fg"><label>First Name</label><input type="text" placeholder="John"/></div>
+      <div class="fg"><label>Last Name</label><input type="text" placeholder="Smith"/></div>
+    </div>
+    <div class="fg"><label>Email</label><input type="email" placeholder="john@email.com"/></div>
+    <div class="fg"><label>Phone (optional)</label><input type="tel" placeholder="(817) 000-0000"/></div>
+    <div class="fg"><label>Service</label>
+      <select>
+        <option value="">Select a service...</option>
+        <option>Interior Detail</option>
+        <option>Exterior Detail</option>
+        <option>Gold Package (Interior + Exterior)</option>
+        <option>Super Interior</option>
+        <option>Platinum Package</option>
+        <option>Subscription Plan</option>
+        <option>Not sure — help me choose</option>
+      </select>
+    </div>
+    <div class="fg"><label>Vehicle Size</label>
+      <select>
+        <option value="">Select vehicle type...</option>
+        <option>Sedan / Coupe</option>
+        <option>SUV / Crossover</option>
+        <option>Truck</option>
+        <option>Minivan</option>
+        <option>Luxury / Exotic</option>
+      </select>
+    </div>
+    <div class="fg"><label>Message</label><textarea placeholder="Tell us about your vehicle and what you need..."></textarea></div>
+    <button class="fsub" onclick="handleSubmit()">Send Message →</button>
+    <p style="font-size:11px;color:var(--white-dim);margin-top:10px;">Or book directly at <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" style="color:var(--red);">our booking page</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="fbrand">
+      <a href="#hero" class="fbrand-logo">
+        <img src="logo.png" alt="Heritage Auto Spa"/>
+        <div class="fbrand-logo-txt"><span>Heritage</span><small>Auto Spa</small></div>
+      </a>
+      <p>Professional mobile detailing serving Colleyville, TX and the DFW Metroplex. Your driveway, your schedule, our craft.</p>
+    </div>
+    <div class="flinks"><h4>Navigate</h4><ul><li><a href="#about">About</a></li><li><a href="#services">Services</a></li><li><a href="#gallery">Gallery</a></li><li><a href="#testimonials">Reviews</a></li><li><a href="#contact">Contact</a></li></ul></div>
+    <div class="flinks"><h4>Services</h4><ul><li><a href="#services">Interior — Standard</a></li><li><a href="#services">Interior — Premium</a></li><li><a href="#services">Exterior — Standard</a></li><li><a href="#services">Exterior — Premium</a></li><li><a href="#services">Full Detail — Standard</a></li><li><a href="#services">Full Detail — Premium</a></li><li><a href="#services">Paint Correction</a></li><li><a href="#services">Ceramic Coating</a></li><li><a href="#services">Monthly Maintenance</a></li></ul></div>
+    <div class="flinks"><h4>Book</h4><ul><li><a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank">Online Booking</a></li><li><a href="#contact">Send a Message</a></li><li><a href="tel:+1XXXXXXXXXX">Call / Text</a></li></ul></div>
+  </div>
+  <div class="footer-bot">
+    <span>© 2025 Heritage Auto Spa Mobile Detailing · Colleyville, TX</span>
+    <span>dfwheritageautospa.com</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), i * 90); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  function toggleMenu() {
+    const links = document.querySelector('.nav-links');
+    const cta   = document.querySelector('.nav-cta');
+    const open  = links.style.display === 'flex';
+    links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(8,8,8,0.98);padding:28px 24px;gap:20px;z-index:199;border-bottom:1px solid rgba(212,43,43,0.3);';
+    cta.style.display = open ? '' : 'none';
+  }
+
+  function handleSubmit() {
+    alert("Thanks! We'll be in touch soon. You can also book directly at our booking page.");
+  }
+</script>
+</body>
+</html>
