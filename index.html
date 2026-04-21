@@ -210,6 +210,31 @@
     .glabel { position: absolute; bottom: 12px; left: 16px; z-index: 2; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--white); opacity: 0; transform: translateY(6px); transition: all 0.3s; }
     .gitem:hover .glabel { opacity: 1; transform: translateY(0); }
 
+    /* VIDEOS */
+    #videos { background: var(--black-2); }
+    .video-head { margin-bottom: 48px; }
+    .video-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 1200px; }
+    .video-wrap {
+      position: relative; background: var(--black-3);
+      border: 1px solid rgba(212,43,43,0.15);
+      overflow: hidden; transition: border-color 0.3s;
+    }
+    .video-wrap:hover { border-color: var(--red); }
+    .video-short {
+      aspect-ratio: 9/16;
+      width: 100%;
+    }
+    .video-short iframe {
+      width: 100%; height: 100%; border: none; display: block;
+    }
+    .video-label {
+      padding: 14px 16px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--white-dim);
+    }
+    @media (max-width: 960px) { .video-grid { grid-template-columns: 1fr; max-width: 360px; } }
+
     /* TESTIMONIALS */
     #testimonials { background: var(--black-2); }
     .t-head { margin-bottom: 52px; }
@@ -307,6 +332,7 @@
     <li><a href="#about">About</a></li>
     <li><a href="#services">Services</a></li>
     <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#videos">Videos</a></li>
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -673,6 +699,24 @@
     <div class="gitem"><div class="gph">📷<br>Paint</div><div class="glabel">Paint Finish</div></div>
   </div>
   <p style="text-align:center;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:rgba(212,43,43,0.4);margin-top:28px;" class="reveal">Replace placeholders with your actual before/after photos</p>
+</section>
+
+<!-- VIDEOS -->
+<section id="videos">
+  <div class="video-head reveal">
+    <div class="section-label">Before &amp; After</div>
+    <h2 class="section-title">See the <span class="red">Results</span></h2>
+    <p class="section-body">Real work on real cars. Watch the transformation — this is what Heritage Auto Spa does.</p>
+  </div>
+  <div class="video-grid">
+    <div class="video-wrap reveal">
+      <div class="video-short">
+        <iframe src="https://www.youtube.com/embed/LGwXZ7H-gD0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+      </div>
+      <div class="video-label">Before &amp; After Detail</div>
+    </div>
+    <!-- Add more videos here as you upload them -->
+  </div>
 </section>
 
 <!-- TESTIMONIALS -->
