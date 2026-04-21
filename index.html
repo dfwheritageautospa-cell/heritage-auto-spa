@@ -186,6 +186,8 @@
     .svc-list li { font-size: 12px; color: var(--white-dim); padding: 5px 0; border-bottom: 1px solid var(--white-faint); display: flex; align-items: center; gap: 8px; }
     .svc-list li::before { content: '—'; color: var(--red); font-size: 10px; flex-shrink: 0; }
     .svc-badge { display: inline-block; margin-top: 18px; font-family: 'Barlow Condensed', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--red); border: 1px solid rgba(212,43,43,0.35); padding: 4px 12px; font-weight: 600; }
+    .svc-book { display: block; margin-top: 20px; background: var(--red); color: var(--white); padding: 11px 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; text-align: center; transition: background 0.2s; }
+    .svc-book:hover { background: var(--red-bright); }
 
     /* PROCESS */
     #process { background: var(--black-2); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
@@ -234,7 +236,21 @@
       font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
       color: var(--white-dim);
     }
-    @media (max-width: 960px) { .video-grid { grid-template-columns: 1fr; max-width: 360px; } }
+    @media (max-width: 960px) {
+      .video-grid {
+        display: flex;
+        flex-direction: row;
+        overflow-x: auto;
+        gap: 16px;
+        padding-bottom: 12px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .video-wrap {
+        flex: 0 0 280px;
+        scroll-snap-align: start;
+      }
+    }
 
     /* TESTIMONIALS */
     #testimonials { background: var(--black-2); }
@@ -442,6 +458,7 @@
         <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$60</span></div>
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$70</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="02">
@@ -485,6 +502,7 @@
         <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$60</span></div>
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$70</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="04">
@@ -529,6 +547,7 @@
         <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$140</span></div>
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$160</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="06">
@@ -549,6 +568,7 @@
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$200</span></div>
       </div>
       <span class="svc-badge">Most Popular</span>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <!-- placeholder -->
@@ -572,6 +592,7 @@
         <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$250</span></div>
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$275</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="08">
@@ -589,6 +610,7 @@
         <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$425</span></div>
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$500</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="09">
@@ -607,6 +629,7 @@
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$750</span></div>
       </div>
       <span class="svc-badge">Best Value</span>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <!-- MONTHLY -->
@@ -627,6 +650,7 @@
         <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$105</span></div>
         <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$125</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="11">
@@ -664,6 +688,7 @@
         <li>Interior ceramic — ask for pricing</li>
       </ul>
       <span class="svc-badge">Mix &amp; Match</span>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
   </div>
@@ -886,6 +911,26 @@
     links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(8,8,8,0.98);padding:28px 24px;gap:20px;z-index:199;border-bottom:1px solid rgba(212,43,43,0.3);';
     cta.style.display = open ? '' : 'none';
   }
+
+  // Close menu when any nav link is clicked
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      const cta = document.querySelector('.nav-cta');
+      links.style.cssText = '';
+      cta.style.display = '';
+    });
+  });
+
+  // Close mobile menu when a nav link is clicked
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      const links = document.querySelector('.nav-links');
+      const cta = document.querySelector('.nav-cta');
+      links.style.cssText = '';
+      cta.style.display = '';
+    });
+  });
 
   function handleSubmit() {
     alert("Thanks! We'll be in touch soon. You can also book directly at our booking page.");
