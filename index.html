@@ -42,6 +42,7 @@
       backdrop-filter: blur(10px);
       transition: border-color 0.3s;
     }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
     nav.scrolled { border-bottom-color: var(--red); }
 
     .nav-logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -57,8 +58,11 @@
     .nav-cta { background: var(--red); color: var(--white); padding: 10px 26px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; font-weight: 600; font-family: 'Barlow Condensed', sans-serif; transition: background 0.2s, transform 0.15s; border: 1px solid var(--red); }
     .nav-cta:hover { background: var(--red-bright); transform: translateY(-1px); }
 
-    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
-    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); }
+    .nav-social { display: flex; gap: 12px; align-items: center; margin-right: 8px; }
+    .nav-social .social-link { width: 32px; height: 32px; border: 1px solid rgba(212,43,43,0.3); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.2s; color: var(--white-dim); }
+    .nav-social .social-link:hover { border-color: var(--red); background: var(--red-dim); color: var(--white); }
+    .nav-social .social-link svg { width: 14px; height: 14px; fill: currentColor; }
+    @media (max-width: 960px) { .nav-social { display: none; } }
 
     /* HERO */
     #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--black); }
@@ -300,7 +304,10 @@
     .flinks ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .flinks ul a { font-size: 13px; color: var(--white-dim); text-decoration: none; transition: color 0.2s; }
     .flinks ul a:hover { color: var(--red); }
-    .footer-bot { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: rgba(240,240,240,0.25); flex-wrap: wrap; gap: 8px; }
+    .social-links { display: flex; gap: 12px; align-items: center; }
+    .social-links .social-link { width: 36px; height: 36px; border: 1px solid rgba(212,43,43,0.3); display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.2s; color: var(--white-dim); }
+    .social-links .social-link:hover { border-color: var(--red); background: var(--red-dim); color: var(--white); }
+    .social-links .social-link svg { width: 16px; height: 16px; fill: currentColor; }
 
     /* ANIMATIONS */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
@@ -308,10 +315,12 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* MOBILE */
+    .nav-social { display: flex; gap: 10px; align-items: center; }
     @media (max-width: 960px) {
       nav { padding: 0 20px; }
       .nav-links, .nav-cta { display: none; }
-      .hamburger { display: flex; }
+      .nav-social { display: none !important; }
+      .hamburger { display: flex !important; }
       section { padding: 64px 20px; }
       .hero-content { grid-template-columns: 1fr; gap: 40px; text-align: center; padding: 110px 20px 60px; }
       .hero-actions { justify-content: center; }
@@ -353,6 +362,14 @@
     <li><a href="#testimonials">Reviews</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <div class="nav-social">
+    <a href="https://www.facebook.com/share/1DgN7BkQs7/?mibextid=wwXIfr" target="_blank" class="social-link" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/heritage_autospa/" target="_blank" class="social-link" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+    </a>
+  </div>
   <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="nav-cta">Book Now</a>
   <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
@@ -433,7 +450,7 @@
     <div class="reveal">
       <div class="section-label">What We Offer</div>
       <h2 class="section-title">Our <span class="red">Services</span></h2>
-      <p class="section-body">12 packages across interior, exterior, full detail, paint correction, ceramic coating, and monthly maintenance. Priced by vehicle size.</p>
+      <p class="section-body">16 packages across interior, exterior, full detail, paint correction, ceramic coating, monthly maintenance, and restorative services. Priced by vehicle size.</p>
     </div>
     <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="btn-red reveal" style="align-self:flex-end;padding:10px 20px;font-size:10px;">Book a Service →</a>
   </div>
@@ -454,9 +471,9 @@
         <li>Clean windows</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$50</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$60</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$70</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$65</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$80</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$95</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
@@ -474,14 +491,13 @@
         <li>Interior windows &amp; surface protectant</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$80</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$90</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$100</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$100</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$120</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$135</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <!-- placeholder for grid alignment -->
     <div style="background:transparent;"></div>
 
     <!-- EXTERIOR -->
@@ -499,9 +515,9 @@
         <li>Tire dressing</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$50</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$60</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$70</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$65</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$80</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$95</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
@@ -519,14 +535,13 @@
         <li>1 month ceramic spray sealant</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$70</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$80</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$90</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$90</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$105</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$120</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <!-- placeholder -->
     <div style="background:transparent;"></div>
 
     <!-- FULL DETAIL -->
@@ -545,9 +560,9 @@
         <li>Trim restore &amp; tire dressing</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$120</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$140</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$160</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$150</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$175</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$199</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
@@ -565,15 +580,14 @@
         <li>1 month ceramic spray sealant</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$160</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$180</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$200</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$195</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$229</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$259</span></div>
       </div>
       <span class="svc-badge">Most Popular</span>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <!-- placeholder -->
     <div style="background:transparent;"></div>
 
     <!-- PAINT -->
@@ -590,32 +604,33 @@
         <li>Restores depth and clarity</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$225</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$250</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$275</span></div>
-      </div>
-      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
-    </div>
-
-    <div class="svc-card reveal" data-num="08">
-      <div class="svc-icon">🛡️</div>
-      <div class="svc-name">3-Year Ceramic Coating</div>
-      <p class="svc-desc">Professional ceramic coating after full wash and paint prep. Bonds to paint creating a durable hydrophobic layer — repels water, dirt, and protects for up to 3 years. 4 hr+</p>
-      <ul class="svc-list">
-        <li>Full wash &amp; paint preparation</li>
-        <li>Professional ceramic coat application</li>
-        <li>Hydrophobic protection layer</li>
-        <li>Up to 3 years of protection</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$375</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$425</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$500</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$279</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$299</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$329</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <div class="svc-card reveal" data-num="09">
+      <div class="svc-icon">💫</div>
+      <div class="svc-name">7-Year Ceramic Coating</div>
+      <p class="svc-desc">Our longest-lasting ceramic protection. Premium grade coating that delivers superior gloss, hardness, and hydrophobic performance for up to 7 years. 5 hr+</p>
+      <ul class="svc-list">
+        <li>Full wash &amp; paint decontamination</li>
+        <li>Premium grade ceramic coat application</li>
+        <li>Superior hardness &amp; gloss</li>
+        <li>Up to 7 years of protection</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$599</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$679</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$749</span></div>
+      </div>
+      <span class="svc-badge">Best Protection</span>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
+    </div>
+
+    <div class="svc-card reveal" data-num="10">
       <div class="svc-icon">💎</div>
       <div class="svc-name">Paint Correction + Ceramic Bundle</div>
       <p class="svc-desc">Complete paint enhancement and protection. Machine polish removes defects, then ceramic coating locks in the gloss with long-lasting protection. 6 hr+</p>
@@ -626,18 +641,20 @@
         <li>Water repellency &amp; easier maintenance</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$550</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$650</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$750</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$649</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$749</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$849</span></div>
       </div>
       <span class="svc-badge">Best Value</span>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
+    <div style="background:transparent;"></div>
+
     <!-- MONTHLY -->
     <div class="svc-category"><span style="color:var(--white);">Monthly Maintenance</span> <span style="color:var(--red);">VIP</span></div>
 
-    <div class="svc-card reveal" data-num="10">
+    <div class="svc-card reveal" data-num="11">
       <div class="svc-icon">📅</div>
       <div class="svc-name">Monthly Maintenance — Standard</div>
       <p class="svc-desc">Keeps your vehicle consistently maintained throughout the year. Prevents heavy buildup while keeping it looking fresh. 3 hr+</p>
@@ -648,14 +665,14 @@
         <li>1 month ceramic protection</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$85</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$105</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$125</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$105</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$125</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$149</span></div>
       </div>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <div class="svc-card reveal" data-num="11">
+    <div class="svc-card reveal" data-num="12">
       <div class="svc-icon">⭐</div>
       <div class="svc-name">Monthly Maintenance — Premium</div>
       <p class="svc-desc">VIP-level monthly maintenance. Full interior &amp; exterior care every month — your vehicle always looks its best. 3 hr+</p>
@@ -667,28 +684,71 @@
         <li>1 month ceramic spray sealant</li>
       </ul>
       <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$140</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$160</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$180</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$159</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$189</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$209</span></div>
       </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
+    </div>
+
+    <div style="background:transparent;"></div>
+
+    <!-- RESTORATIVE -->
+    <div class="svc-category"><span style="color:var(--red);">Restorative</span> <span style="color:var(--white);">Services</span></div>
+
+    <div class="svc-card reveal" data-num="13">
+      <div class="svc-icon">🚗</div>
+      <div class="svc-name">Trade-In / Pre-Sale Prep</div>
+      <p class="svc-desc">Maximize your vehicle's value before selling or trading in. Full detail designed to make your car look its absolute best for buyers.</p>
+      <ul class="svc-list">
+        <li>Complete interior &amp; exterior detail</li>
+        <li>Paint decontamination</li>
+        <li>Odor treatment if needed</li>
+        <li>Presentation-ready finish</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$249</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$299</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$349</span></div>
+      </div>
+      <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
+    </div>
+
+    <div class="svc-card reveal" data-num="15">
+      <div class="svc-icon">🆘</div>
+      <div class="svc-name">Heavy Condition Rescue</div>
+      <p class="svc-desc">For vehicles that haven't been detailed in years. We go deep — stains, odors, buildup, and grime. We rescue it all.</p>
+      <ul class="svc-list">
+        <li>Heavy interior extraction &amp; shampoo</li>
+        <li>Stain &amp; odor treatment</li>
+        <li>Full exterior decontamination</li>
+        <li>Multiple passes until restored</li>
+      </ul>
+      <div class="svc-pricing">
+        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$349</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$429</span></div>
+        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$499</span></div>
+      </div>
+      <span class="svc-badge">We Rescue Any Condition</span>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
     <!-- ADD ONS -->
     <div class="svc-category"><span style="color:var(--red);">Add-On</span> <span style="color:var(--white);">Services</span></div>
 
-    <div class="svc-card reveal" data-num="12">
+    <div class="svc-card reveal" data-num="16">
       <div class="svc-icon">➕</div>
       <div class="svc-name">Add-On Services</div>
-      <p class="svc-desc">Customize any package with these individual add-ons. 30 min+ each.</p>
+      <p class="svc-desc">Customize any package. Pet hair severity is assessed on-site before service begins.</p>
       <ul class="svc-list">
-        <li>Pet hair removal — $50</li>
-        <li>Carpet deep clean — $50</li>
-        <li>Seat deep clean — $50</li>
-        <li>Leather seat conditioner — $35</li>
-        <li>Engine detail — $40</li>
-        <li>Headlight restoration — ask for pricing</li>
-        <li>Interior ceramic — ask for pricing</li>
+        <li>Pet hair removal — $45 light / $75 moderate / $125 heavy</li>
+        <li>Carpet deep clean — $65</li>
+        <li>Seat deep clean — $65</li>
+        <li>Odor treatment — $75</li>
+        <li>Leather conditioner — $50</li>
+        <li>Engine detail — $55</li>
+        <li>Headlight restoration — $50 single / $75 both</li>
+        <li>Interior ceramic coating — $95</li>
       </ul>
       <span class="svc-badge">Mix &amp; Match</span>
       <a href="https://book.squareup.com/appointments/yy6ghl4qzd1go1/location/LKBK2490M10FW/services" target="_blank" class="svc-book">Book This Service →</a>
@@ -892,6 +952,14 @@
   </div>
   <div class="footer-bot">
     <span>© 2025 Heritage Auto Spa Mobile Detailing · Colleyville, TX</span>
+    <div class="social-links">
+      <a href="https://www.facebook.com/share/1DgN7BkQs7/?mibextid=wwXIfr" target="_blank" class="social-link" aria-label="Facebook">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/heritage_autospa/" target="_blank" class="social-link" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+    </div>
     <span>dfwheritageautospa.com</span>
   </div>
 </footer>
