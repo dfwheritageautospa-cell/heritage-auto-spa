@@ -997,7 +997,6 @@
 
 <script>
   const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 50));
 
   const obs = new IntersectionObserver((entries) => {
     entries.forEach((e, i) => {
@@ -1006,32 +1005,35 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
+  function closeMenu() {
+    const links = document.querySelector('.nav-links');
+    const cta = document.querySelector('.nav-cta');
+    links.style.cssText = '';
+    cta.style.display = '';
+  }
+
   function toggleMenu() {
     const links = document.querySelector('.nav-links');
-    const cta   = document.querySelector('.nav-cta');
-    const open  = links.style.display === 'flex';
-    links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(8,8,8,0.98);padding:28px 24px;gap:20px;z-index:199;border-bottom:1px solid rgba(212,43,43,0.3);';
+    const cta = document.querySelector('.nav-cta');
+    const open = links.style.display === 'flex';
+    links.style.cssText = open ? '' : 'display:flex;flex-direction:column;position:fixed;top:68px;left:0;right:0;background:rgba(26,26,26,0.98);padding:28px 24px;gap:20px;z-index:199;border-bottom:3px solid var(--red);';
+    // Make menu links white when open
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.style.color = open ? '' : '#ffffff';
+    });
     cta.style.display = open ? '' : 'none';
   }
 
   // Close menu when any nav link is clicked
   document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      const links = document.querySelector('.nav-links');
-      const cta = document.querySelector('.nav-cta');
-      links.style.cssText = '';
-      cta.style.display = '';
-    });
+    link.addEventListener('click', closeMenu);
   });
 
-  // Close mobile menu when a nav link is clicked
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      const links = document.querySelector('.nav-links');
-      const cta = document.querySelector('.nav-cta');
-      links.style.cssText = '';
-      cta.style.display = '';
-    });
+  // Close menu on scroll
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', scrollY > 50);
+    const links = document.querySelector('.nav-links');
+    if (links.style.display === 'flex') closeMenu();
   });
 
   function handleSubmit() {
