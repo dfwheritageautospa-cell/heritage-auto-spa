@@ -696,6 +696,7 @@
       </p>
       <br><br>
       <a href="/" style="display:inline-block;background:var(--red);color:white;padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">Back to Site</a>
+      <div id="block-date-reminder" style="display:none;margin-top:24px;background:#fff3cd;border:1px solid #ffc107;padding:12px 16px;font-size:13px;color:#856404;text-align:left;border-radius:4px;"></div>
     </div>
   </div>
 
@@ -914,51 +915,97 @@
     btn.disabled = true;
     btn.textContent = 'Submitting...';
 
+    const fname = document.getElementById('fname').value;
+    const lname = document.getElementById('lname').value;
+    const phone = document.getElementById('phone').value;
+    const email = document.getElementById('email').value;
+    const address = document.getElementById('address').value;
+    const vehicleDetail = document.getElementById('vehicle-detail').value;
+    const preferredDate = document.getElementById('preferred-date').value;
+    const notes = document.getElementById('notes').value;
     const servicesList = selectedServices.map(s => `${s.name} ($${s.price})`).join('\n');
-    const body = `
+
+    // Message to Nate
+    const nateBody = `
 NEW BOOKING REQUEST — Heritage Auto Spa
 
-Name: ${document.getElementById('fname').value} ${document.getElementById('lname').value}
-Phone: ${document.getElementById('phone').value}
-Email: ${document.getElementById('email').value}
-Address: ${document.getElementById('address').value}
-Vehicle: ${selectedVehicleName}${document.getElementById('vehicle-detail').value ? ' · ' + document.getElementById('vehicle-detail').value : ''}
-Preferred Time: ${document.getElementById('preferred-date').value || 'Flexible'}
+Name: ${fname} ${lname}
+Phone: ${phone}
+Email: ${email}
+Address: ${address}
+Vehicle: ${selectedVehicleName}${vehicleDetail ? ' · ' + vehicleDetail : ''}
+Date & Time: ${preferredDate}
 
 Services:
 ${servicesList}
 
 Estimated Total: $${totalPrice.toLocaleString()}
 
-Notes: ${document.getElementById('notes').value || 'None'}
+Notes: ${notes || 'None'}
     `.trim();
 
-    // Send to Formspree (replace YOUR_FORM_ID with actual Formspree form ID)
-    try {
-      const res = await fetch('https://formspree.io/f/mdajeoge', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify({
-          email: document.getElementById('email').value,
-          message: body,
-          _subject: `New Booking Request — ${document.getElementById('fname').value} ${document.getElementById('lname').value} — $${totalPrice}`
-        })
-      });
+    // Confirmation message to customer
+    const customerBody = `
+Hi ${fname}!
 
-      if (res.ok) {
-        document.getElementById('step-4').classList.remove('active');
-        document.getElementById('step-success').classList.add('active');
-        document.getElementById('summary-bar').style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        throw new Error('Failed');
-      }
-    } catch (e) {
-      // Fallback — show success anyway and open Jobber
+Thanks for booking with Heritage Auto Spa! Here's a summary of your request:
+
+📅 Date & Time: ${preferredDate}
+🚗 Vehicle: ${vehicleDetail} (${selectedVehicleName})
+📍 Address: ${address}
+
+Services Requested:
+${servicesList}
+
+Estimated Total: $${totalPrice.toLocaleString()}
+
+We'll reach out shortly to confirm your appointment. Questions? Call or text us at (682) 417-9435.
+
+See you soon!
+— Nate
+Heritage Auto Spa
+dfwheritageautospa.com
+    `.trim();
+
+    function showSuccess() {
       document.getElementById('step-4').classList.remove('active');
       document.getElementById('step-success').classList.add('active');
       document.getElementById('summary-bar').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (selectedDate) {
+        const blockKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
+        document.getElementById('block-date-reminder').textContent = `📌 Remember to block this date in book.html: '${blockKey}'`;
+        document.getElementById('block-date-reminder').style.display = 'block';
+      }
+    }
+
+    try {
+      // Send booking notification to Nate
+      await fetch('https://formspree.io/f/mdajeoge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: 'dfwheritageautospa@gmail.com',
+          message: nateBody,
+          _subject: `🔔 New Booking — ${fname} ${lname} — ${preferredDate} — $${totalPrice}`,
+        })
+      });
+
+      // Send confirmation to customer
+      await fetch('https://formspree.io/f/mdajeoge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          message: customerBody,
+          _subject: `Your Heritage Auto Spa Booking Request — ${preferredDate}`,
+          _replyto: 'dfwheritageautospa@gmail.com',
+        })
+      });
+
+      showSuccess();
+    } catch (e) {
+      showSuccess();
     }
   }
   // CALENDAR
@@ -969,15 +1016,21 @@ Notes: ${document.getElementById('notes').value || 'None'}
   let selectedDate = null;
   let selectedTime = null;
 
-  // Dates already booked — add as 'YYYY-M-D' strings to block them out
-  // You can manually update this list as bookings come in
-  const BOOKED_DATES = [];
+  // ─── BOOKED DATES ───────────────────────────────────────────────
+  // Add dates here to block them out (one booking per day).
+  // Format: 'YYYY-M-D' (month is NOT zero-padded, so May = 5, not 05)
+  // Example: '2026-5-28' blocks May 28, 2026
+  // When someone books, add their date here and re-upload to GitHub.
+  const BOOKED_DATES = [
+    // '2026-5-28',
+  ];
+  // ────────────────────────────────────────────────────────────────
 
   function isBookable(date) {
     const today = new Date();
     today.setHours(0,0,0,0);
     const minDate = new Date(today);
-    minDate.setDate(today.getDate() + 2); // 2 days from now minimum
+    minDate.setDate(today.getDate() + 1); // 1 day from now minimum
     const dayOfWeek = date.getDay();
     const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
     const isPast = date < minDate;
