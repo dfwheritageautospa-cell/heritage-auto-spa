@@ -367,22 +367,22 @@
 
 <!-- PROGRESS -->
 <div class="progress-wrap">
-  <div class="prog-step active" id="prog-1">
+  <div class="prog-step active" id="prog-1" onclick="jumpToStep(1)" style="cursor:pointer;">
     <div class="prog-num">1</div>
     <span>Vehicle</span>
   </div>
   <div class="prog-line" id="line-1"></div>
-  <div class="prog-step" id="prog-2">
+  <div class="prog-step" id="prog-2" onclick="jumpToStep(2)" style="cursor:pointer;">
     <div class="prog-num">2</div>
     <span>Services</span>
   </div>
   <div class="prog-line" id="line-2"></div>
-  <div class="prog-step" id="prog-3">
+  <div class="prog-step" id="prog-3" onclick="jumpToStep(3)" style="cursor:pointer;">
     <div class="prog-num">3</div>
     <span>Your Info</span>
   </div>
   <div class="prog-line" id="line-3"></div>
-  <div class="prog-step" id="prog-4">
+  <div class="prog-step" id="prog-4" onclick="jumpToStep(4)" style="cursor:pointer;">
     <div class="prog-num">4</div>
     <span>Confirm</span>
   </div>
@@ -727,14 +727,26 @@
     document.querySelectorAll('.vehicle-card').forEach((c, i) => {
       c.classList.toggle('selected', i === idx);
     });
-    // Update all prices
+    // Update all displayed prices
     document.querySelectorAll('.so-price').forEach(el => {
       const prices = el.dataset.prices.split(',').map(Number);
       el.textContent = '$' + prices[idx];
     });
-    document.getElementById('vehicle-label').textContent = name + ' selected — choose your services below';
-    showSummaryBar();
+    // Re-price already selected services
+    selectedServices = selectedServices.map(s => {
+      const allOptions = document.querySelectorAll('.service-option');
+      for (const opt of allOptions) {
+        const priceEl = opt.querySelector('.so-price');
+        const nameEl = opt.querySelector('.so-name');
+        if (nameEl && nameEl.textContent.replace(' ⭐ Most Popular','').replace(' 💎 Best Value','').replace(' ⭐ Best Protection','').trim() === s.name) {
+          const prices = priceEl.dataset.prices.split(',').map(Number);
+          return { name: s.name, price: prices[idx] };
+        }
+      }
+      return s;
+    });
     updateTotal();
+    showSummaryBar();
   }
 
   function toggleService(el, name, prices) {
@@ -833,6 +845,12 @@
     } else if (currentStep === 4) {
       submitRequest();
     }
+  }
+
+  function jumpToStep(n) {
+    // Only allow jumping to steps already visited (can't skip ahead)
+    if (n >= currentStep) return;
+    goToStep(n);
   }
 
   function goBack() {
