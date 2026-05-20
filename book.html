@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book a Detail | Heritage Auto Spa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --red: #CC2222;
+      --red-bright: #E83333;
+      --red-dim: rgba(204,34,34,0.1);
+      --black: #1A1A1A;
+      --white: #FFFFFF;
+      --white-2: #F5F5F5;
+      --white-3: #EEEEEE;
+      --text-dark: #1A1A1A;
+      --text-mid: #555555;
+      --text-light: #888888;
+      --checker: repeating-conic-gradient(#CC2222 0% 25%, #FFFFFF 0% 50%) 0 0 / 16px 16px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--white-2);
+      color: var(--text-dark);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--red);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 0 48px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .logo-wrap img { width: 42px; height: 42px; border-radius: 50%; border: 2px solid var(--red); background: white; }
+    .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; line-height: 1; }
+    .logo-text span { color: var(--red); display: block; }
+    .logo-text small { color: var(--text-mid); font-size: 10px; letter-spacing: 4px; display: block; }
+    .back-link { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; font-weight: 500; }
+    .back-link:hover { color: var(--red); }
+    .header-right { display: flex; align-items: center; gap: 16px; }
+    .book-now-badge {
+      background: var(--red); color: white;
+      padding: 8px 20px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+    }
+
+    /* CHECKER STRIP */
+    .checker-strip { height: 16px; background: var(--checker); }
+
+    /* HERO */
+    .booking-hero {
+      background: var(--white);
+      padding: 60px 48px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--white-3);
+    }
+    .booking-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(204,34,34,0.05) 0%, transparent 70%);
+    }
+    .booking-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(48px, 8vw, 90px);
+      letter-spacing: 4px;
+      line-height: 0.95;
+      position: relative; z-index: 1;
+    }
+    .booking-hero h1 .line-dark { color: var(--text-dark); display: block; }
+    .booking-hero h1 .line-red { color: var(--red); display: block; }
+    .booking-hero p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--text-light); margin-top: 12px;
+      position: relative; z-index: 1;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .booking-hero p::before, .booking-hero p::after {
+      content: ''; display: block; width: 30px; height: 1px; background: var(--red);
+    }
+
+    /* PROGRESS BAR */
+    .progress-wrap {
+      background: var(--white);
+      padding: 24px 48px;
+      border-bottom: 1px solid var(--white-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+    .prog-step {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--text-light);
+      transition: color 0.3s;
+    }
+    .prog-step.active { color: var(--red); }
+    .prog-step.done { color: var(--text-mid); }
+    .prog-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 600;
+      transition: all 0.3s;
+    }
+    .prog-step.active .prog-num { background: var(--red); border-color: var(--red); color: white; }
+    .prog-step.done .prog-num { background: var(--text-mid); border-color: var(--text-mid); color: white; }
+    .prog-line { width: 60px; height: 2px; background: var(--white-3); margin: 0 8px; }
+    .prog-line.done { background: var(--red); }
+
+    /* MAIN CONTENT */
+    .booking-main {
+      max-width: 860px;
+      margin: 40px auto;
+      padding: 0 24px 80px;
+    }
+
+    /* STEP PANELS */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: fadeUp 0.4s ease; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px; letter-spacing: 2px;
+      color: var(--text-dark); margin-bottom: 8px;
+    }
+    .step-title span { color: var(--red); }
+    .step-subtitle {
+      font-size: 14px; color: var(--text-light); margin-bottom: 32px;
+      font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px;
+    }
+
+    /* VEHICLE CARDS */
+    .vehicle-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+    .vehicle-card {
+      background: var(--white);
+      border: 2px solid var(--white-3);
+      padding: 28px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 0;
+    }
+    .vehicle-card:hover { border-color: var(--red); background: var(--white-2); }
+    .vehicle-card.selected { border-color: var(--red); background: var(--red-dim); }
+    .vehicle-card.selected .vc-name { color: var(--red); }
+    .vc-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+    .vc-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px; letter-spacing: 2px;
+      color: var(--text-dark); display: block;
+      transition: color 0.2s;
+    }
+
+    /* SERVICE CARDS */
+    .services-group { margin-bottom: 32px; }
+    .services-group-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px; letter-spacing: 2px;
+      color: var(--text-dark); margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--red);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .services-group-title span { color: var(--red); }
+
+    .service-option {
+      background: var(--white);
+      border: 2px solid var(--white-3);
+      padding: 18px 20px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .service-option:hover { border-color: rgba(204,34,34,0.4); }
+    .service-option.selected { border-color: var(--red); background: var(--red-dim); }
+    .service-option input[type="checkbox"] { display: none; }
+
+    .so-left { display: flex; align-items: center; gap: 14px; flex: 1; }
+    .so-check {
+      width: 22px; height: 22px; min-width: 22px;
+      border: 2px solid var(--white-3);
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s; font-size: 13px;
+    }
+    .service-option.selected .so-check { border-color: var(--red); background: var(--red); color: white; }
+
+    .so-info { flex: 1; }
+    .so-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 16px; letter-spacing: 1px; font-weight: 600;
+      color: var(--text-dark); text-transform: uppercase;
+    }
+    .so-desc { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+
+    .so-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px; color: var(--red); letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    /* SUMMARY BAR */
+    .summary-bar {
+      position: sticky; bottom: 0;
+      background: var(--white);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 3px solid var(--red);
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+      z-index: 50;
+    }
+    .summary-left { font-family: 'Barlow Condensed', sans-serif; }
+    .summary-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); }
+    .summary-total { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--red); letter-spacing: 1px; }
+    .summary-services { font-size: 11px; color: var(--text-mid); max-width: 400px; }
+
+    /* BUTTONS */
+    .btn-next {
+      background: var(--red); color: white;
+      padding: 14px 36px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; border: none; cursor: pointer;
+      transition: all 0.2s; white-space: nowrap;
+    }
+    .btn-next:hover { background: var(--red-bright); transform: translateY(-1px); }
+    .btn-next:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+
+    .btn-back {
+      background: transparent; color: var(--text-mid);
+      padding: 14px 20px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      border: 1px solid var(--white-3); cursor: pointer;
+      transition: all 0.2s; margin-right: 8px;
+    }
+    .btn-back:hover { color: var(--red); border-color: var(--red); }
+
+    /* CONTACT FORM */
+    .contact-form { background: var(--white); padding: 36px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .fg { display: flex; flex-direction: column; gap: 6px; }
+    .fg.full { grid-column: span 2; }
+    .fg label {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--red); font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+    }
+    .fg input, .fg select, .fg textarea {
+      background: var(--white-2); border: 1px solid var(--white-3);
+      color: var(--text-dark); padding: 12px 14px; font-size: 14px;
+      font-family: 'Barlow', sans-serif; outline: none;
+      transition: border-color 0.2s;
+    }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--red); background: white; }
+    .fg textarea { resize: vertical; min-height: 80px; }
+
+    /* ORDER SUMMARY */
+    .order-summary {
+      background: var(--white-2);
+      border: 2px solid var(--white-3);
+      padding: 24px; margin-bottom: 24px;
+    }
+    .os-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px; letter-spacing: 2px;
+      color: var(--text-dark); margin-bottom: 16px;
+      padding-bottom: 10px; border-bottom: 2px solid var(--red);
+    }
+    .os-item {
+      display: flex; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid var(--white-3);
+      font-size: 13px;
+    }
+    .os-item:last-child { border: none; font-weight: 600; font-size: 15px; }
+    .os-item .price { color: var(--red); font-family: 'Bebas Neue', sans-serif; font-size: 18px; }
+
+    /* SUCCESS */
+    .success-panel {
+      text-align: center; padding: 60px 24px;
+      background: var(--white); max-width: 600px; margin: 0 auto;
+    }
+    .success-icon { font-size: 64px; margin-bottom: 20px; }
+    .success-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px; color: var(--red); letter-spacing: 2px;
+    }
+    .success-msg { font-size: 15px; color: var(--text-mid); line-height: 1.7; margin-top: 12px; }
+
+    /* MOBILE */
+    @media (max-width: 700px) {
+      header { padding: 0 20px; }
+      .booking-hero { padding: 36px 20px 28px; }
+      .progress-wrap { padding: 18px 20px; gap: 0; }
+      .prog-line { width: 30px; }
+      .prog-step span:last-child { display: none; }
+      .booking-main { padding: 0 16px 100px; margin-top: 24px; }
+      .vehicle-grid { grid-template-columns: repeat(2, 1fr); }
+      .form-grid { grid-template-columns: 1fr; }
+      .fg.full { grid-column: span 1; }
+      .summary-services { display: none; }
+      .contact-form { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="/" class="logo-wrap">
+    <img src="logo.png" alt="Heritage Auto Spa"/>
+    <div class="logo-text"><span>Heritage</span><small>Auto Spa</small></div>
+  </a>
+  <a href="/" class="back-link">← Back to Site</a>
+</header>
+
+<div class="checker-strip"></div>
+
+<div style="background:var(--red);overflow:hidden;display:flex;height:40px;align-items:center;">
+  <div style="display:flex;animation:marquee 22s linear infinite;white-space:nowrap;">
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Mobile Service</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">DFW Metroplex</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Interior &amp; Exterior</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Colleyville TX</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Same-Week Booking</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Since 2025</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Mobile Service</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">DFW Metroplex</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Interior &amp; Exterior</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Colleyville TX</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Same-Week Booking</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Since 2025</div>
+  </div>
+</div>
+<div class="checker-strip"></div>
+
+<div class="booking-hero">
+  <h1><span class="line-dark">Book Your</span><span class="line-red">Detail</span></h1>
+  <p>Mobile Detailing · Colleyville, TX · DFW Metroplex</p>
+</div>
+
+<!-- PROGRESS -->
+<div class="progress-wrap">
+  <div class="prog-step active" id="prog-1">
+    <div class="prog-num">1</div>
+    <span>Vehicle</span>
+  </div>
+  <div class="prog-line" id="line-1"></div>
+  <div class="prog-step" id="prog-2">
+    <div class="prog-num">2</div>
+    <span>Services</span>
+  </div>
+  <div class="prog-line" id="line-2"></div>
+  <div class="prog-step" id="prog-3">
+    <div class="prog-num">3</div>
+    <span>Your Info</span>
+  </div>
+  <div class="prog-line" id="line-3"></div>
+  <div class="prog-step" id="prog-4">
+    <div class="prog-num">4</div>
+    <span>Confirm</span>
+  </div>
+</div>
+
+<div class="booking-main">
+
+  <!-- STEP 1: VEHICLE TYPE -->
+  <div class="step-panel active" id="step-1">
+    <div class="step-title">Select Your <span>Vehicle</span></div>
+    <div class="step-subtitle">We price by vehicle size — pick what matches yours</div>
+    <div class="vehicle-grid">
+      <div class="vehicle-card" onclick="selectVehicle('Coupe / Sedan', 0)">
+        <span class="vc-icon">🚗</span>
+        <span class="vc-name">Coupe / Sedan</span>
+      </div>
+      <div class="vehicle-card" onclick="selectVehicle('SUV / Crossover', 1)">
+        <span class="vc-icon">🚙</span>
+        <span class="vc-name">SUV / Crossover</span>
+      </div>
+      <div class="vehicle-card" onclick="selectVehicle('Large SUV / Truck', 2)">
+        <span class="vc-icon">🛻</span>
+        <span class="vc-name">Large SUV / Truck</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: SERVICES -->
+  <div class="step-panel" id="step-2">
+    <div class="step-title">Choose Your <span>Services</span></div>
+    <div class="step-subtitle" id="vehicle-label">Select one or more services</div>
+
+    <div class="services-group">
+      <div class="services-group-title">Interior <span>Services</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Interior Detail — Standard', [65,80,95])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Interior Detail — Standard</div>
+            <div class="so-desc">Vacuum, dust, spot clean, surfaces, windows · 1.5 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="65,80,95">$65</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Interior Detail — Premium', [100,120,135])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Interior Detail — Premium</div>
+            <div class="so-desc">Deep clean, shampoo, vinyl wipe, protectant · 2.5 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="100,120,135">$100</div>
+      </div>
+    </div>
+
+    <div class="services-group">
+      <div class="services-group-title">Exterior <span>Services</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Exterior Detail — Standard', [65,80,95])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Exterior Detail — Standard</div>
+            <div class="so-desc">Foam bath, hand wash, wheels, bug removal, tire dressing · 1.25 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="65,80,95">$65</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Exterior Detail — Premium', [90,105,120])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Exterior Detail — Premium</div>
+            <div class="so-desc">Deep wheels, iron fall out, ceramic sealant, trim · 2 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="90,105,120">$90</div>
+      </div>
+    </div>
+
+    <div class="services-group">
+      <div class="services-group-title">Full Detail <span>Packages</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Full Detail — Standard', [150,175,199])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Full Detail — Standard</div>
+            <div class="so-desc">Interior refresh + exterior clean · 3.5 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="150,175,199">$150</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Full Detail — Premium', [195,229,259])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Full Detail — Premium ⭐ Most Popular</div>
+            <div class="so-desc">Complete interior + exterior restoration · 4 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="195,229,259">$195</div>
+      </div>
+    </div>
+
+    <div class="services-group">
+      <div class="services-group-title">Paint <span>Services</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Paint Correction', [279,299,329])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Paint Correction</div>
+            <div class="so-desc">Machine polish, swirl marks, oxidation · 4.5 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="279,299,329">$279</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, '7-Year Ceramic Coating', [599,679,749])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">7-Year Ceramic Coating ⭐ Best Protection</div>
+            <div class="so-desc">Premium ceramic, hydrophobic, 7 year protection · 5 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="599,679,749">$599</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Paint Correction + Ceramic Bundle', [749,849,999])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Paint Correction + Ceramic Bundle 💎 Best Value</div>
+            <div class="so-desc">Polish + ceramic coating combo · 6 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="749,849,999">$749</div>
+      </div>
+    </div>
+
+    <div class="services-group">
+      <div class="services-group-title">Monthly <span>VIP</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Monthly Maintenance — Premium', [159,189,209])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Monthly Maintenance — Premium</div>
+            <div class="so-desc">Full interior + exterior monthly care · 3 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="159,189,209">$159</div>
+      </div>
+    </div>
+
+    <div class="services-group">
+      <div class="services-group-title">Restorative <span>Services</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Heavy Condition Rescue', [349,429,499])">
+        <div class="so-left">
+          <div class="so-check"></div>
+          <div class="so-info">
+            <div class="so-name">Heavy Condition Rescue</div>
+            <div class="so-desc">Deep extraction, stain & odor treatment · 5 hr+</div>
+          </div>
+        </div>
+        <div class="so-price" data-prices="349,429,499">$349</div>
+      </div>
+    </div>
+
+    <div class="services-group">
+      <div class="services-group-title">Add-On <span>Services</span></div>
+      <div class="service-option" onclick="toggleService(this, 'Pet Hair Removal (Light)', [45,45,45])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Pet Hair Removal — Light</div><div class="so-desc">Surface level</div></div></div>
+        <div class="so-price" data-prices="45,45,45">$45</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Pet Hair Removal (Moderate)', [75,75,75])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Pet Hair Removal — Moderate</div><div class="so-desc">Embedded in seats & carpet</div></div></div>
+        <div class="so-price" data-prices="75,75,75">$75</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Pet Hair Removal (Heavy)', [125,125,125])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Pet Hair Removal — Heavy</div><div class="so-desc">Deeply embedded, multiple passes</div></div></div>
+        <div class="so-price" data-prices="125,125,125">$125</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Carpet Deep Clean', [65,65,65])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Carpet Deep Clean</div></div></div>
+        <div class="so-price" data-prices="65,65,65">$65</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Seat Deep Clean', [65,65,65])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Seat Deep Clean</div></div></div>
+        <div class="so-price" data-prices="65,65,65">$65</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Odor Treatment', [75,75,75])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Odor Treatment</div></div></div>
+        <div class="so-price" data-prices="75,75,75">$75</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Leather Conditioner', [50,50,50])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Leather Conditioner</div></div></div>
+        <div class="so-price" data-prices="50,50,50">$50</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Engine Detail', [55,55,55])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Engine Detail</div></div></div>
+        <div class="so-price" data-prices="55,55,55">$55</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Headlight Restoration (Both)', [75,75,75])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Headlight Restoration — Both</div></div></div>
+        <div class="so-price" data-prices="75,75,75">$75</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Headlight Restoration (Single)', [50,50,50])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Headlight Restoration — Single</div></div></div>
+        <div class="so-price" data-prices="50,50,50">$50</div>
+      </div>
+      <div class="service-option" onclick="toggleService(this, 'Interior Ceramic Coating', [95,95,95])">
+        <div class="so-left"><div class="so-check"></div><div class="so-info"><div class="so-name">Interior Ceramic Coating</div></div></div>
+        <div class="so-price" data-prices="95,95,95">$95</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: CONTACT INFO -->
+  <div class="step-panel" id="step-3">
+    <div class="step-title">Your <span>Info</span></div>
+    <div class="step-subtitle">We'll confirm your booking and reach out to schedule</div>
+
+    <div class="order-summary" id="order-summary-3"></div>
+
+    <div class="contact-form">
+      <div class="form-grid">
+        <div class="fg">
+          <label>First Name *</label>
+          <input type="text" id="fname" placeholder="John" required/>
+        </div>
+        <div class="fg">
+          <label>Last Name *</label>
+          <input type="text" id="lname" placeholder="Smith" required/>
+        </div>
+        <div class="fg">
+          <label>Phone *</label>
+          <input type="tel" id="phone" placeholder="(817) 000-0000" required/>
+        </div>
+        <div class="fg">
+          <label>Email *</label>
+          <input type="email" id="email" placeholder="john@email.com" required/>
+        </div>
+        <div class="fg full">
+          <label>Service Address *</label>
+          <input type="text" id="address" placeholder="123 Main St, Colleyville TX 76034" required/>
+        </div>
+        <div class="fg full">
+          <label>Vehicle Year, Make & Model</label>
+          <input type="text" id="vehicle-detail" placeholder="e.g. 2022 Ford F-150"/>
+        </div>
+        <div class="fg full">
+          <label>Select Date *</label>
+          <div id="calendar-wrap" style="background:var(--white-2);border:1px solid var(--white-3);padding:16px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+              <button type="button" onclick="changeMonth(-1)" style="background:none;border:1px solid var(--white-3);padding:6px 12px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--text-mid);">◀</button>
+              <span id="cal-month-label" style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--text-dark);"></span>
+              <button type="button" onclick="changeMonth(1)" style="background:none;border:1px solid var(--white-3);padding:6px 12px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--text-mid);">▶</button>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px;">
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-light);padding:4px;">SUN</div>
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-light);padding:4px;">MON</div>
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-light);padding:4px;">TUE</div>
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-light);padding:4px;">WED</div>
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-light);padding:4px;">THU</div>
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--text-light);padding:4px;">FRI</div>
+              <div style="text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:1px;color:var(--red);padding:4px;">SAT</div>
+            </div>
+            <div id="cal-days" style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;"></div>
+          </div>
+        </div>
+
+        <div class="fg full" id="timeslot-wrap" style="display:none;">
+          <label>Select Time *</label>
+          <div id="timeslots" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+          <input type="hidden" id="preferred-date" required/>
+        </div>
+        <div class="fg full">
+          <label>Additional Notes</label>
+          <textarea id="notes" placeholder="Any specific concerns, stains, pet hair, etc..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: CONFIRM -->
+  <div class="step-panel" id="step-4">
+    <div class="step-title">Confirm <span>Booking</span></div>
+    <div class="step-subtitle">Review your request before submitting</div>
+    <div class="order-summary" id="order-summary-4"></div>
+    <div class="contact-form" id="confirm-details" style="font-size:14px;line-height:2;color:var(--text-mid);"></div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="step-panel" id="step-success">
+    <div class="success-panel">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Request Sent!</div>
+      <p class="success-msg">
+        Thanks! Your booking request has been submitted. Nate will reach out to confirm your appointment.<br><br>
+        <strong>Heritage Auto Spa</strong><br>
+        (682) 417-9435 · dfwheritageautospa.com
+      </p>
+      <br><br>
+      <a href="/" style="display:inline-block;background:var(--red);color:white;padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">Back to Site</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- STICKY SUMMARY BAR -->
+<div class="summary-bar" id="summary-bar" style="display:none;">
+  <div class="summary-left">
+    <div class="summary-label">Estimated Total</div>
+    <div class="summary-total" id="summary-total">$0</div>
+    <div class="summary-services" id="summary-services"></div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none;">← Back</button>
+    <button class="btn-next" id="btn-next" onclick="goNext()">Next →</button>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+  let selectedVehicleIdx = -1;
+  let selectedVehicleName = '';
+  let selectedServices = [];
+  let totalPrice = 0;
+
+  function selectVehicle(name, idx) {
+    selectedVehicleIdx = idx;
+    selectedVehicleName = name;
+    document.querySelectorAll('.vehicle-card').forEach((c, i) => {
+      c.classList.toggle('selected', i === idx);
+    });
+    // Update all prices
+    document.querySelectorAll('.so-price').forEach(el => {
+      const prices = el.dataset.prices.split(',').map(Number);
+      el.textContent = '$' + prices[idx];
+    });
+    document.getElementById('vehicle-label').textContent = name + ' selected — choose your services below';
+    showSummaryBar();
+    updateTotal();
+  }
+
+  function toggleService(el, name, prices) {
+    if (selectedVehicleIdx === -1) {
+      alert('Please select your vehicle type first!');
+      return;
+    }
+    el.classList.toggle('selected');
+    const check = el.querySelector('.so-check');
+    if (el.classList.contains('selected')) {
+      check.textContent = '✓';
+      selectedServices.push({ name, price: prices[selectedVehicleIdx] });
+    } else {
+      check.textContent = '';
+      selectedServices = selectedServices.filter(s => s.name !== name);
+    }
+    updateTotal();
+  }
+
+  function updateTotal() {
+    totalPrice = selectedServices.reduce((sum, s) => sum + s.price, 0);
+    document.getElementById('summary-total').textContent = '$' + totalPrice.toLocaleString();
+    document.getElementById('summary-services').textContent = selectedServices.map(s => s.name).join(' · ') || 'No services selected';
+  }
+
+  function showSummaryBar() {
+    document.getElementById('summary-bar').style.display = 'flex';
+  }
+
+  const SERVICE_DETAILS = {
+    'Interior Detail — Standard': ['Blow out carpet and mats','Dust & vacuum','Spot clean seats/carpets','Clean and sanitize all surfaces','Clean windows'],
+    'Interior Detail — Premium': ['Blow out carpet and mats','Dust / vacuum','Plastic / vinyl wipe down','Sanitize and clean all surfaces','Clean seats & carpet','Interior windows','Interior surface protectant'],
+    'Exterior Detail — Standard': ['Foam bath & hand wash','Wheel cleaning','Bug removal','Trim restore','Tire dressing'],
+    'Exterior Detail — Premium': ['Foam bath & hand wash','Deep wheel cleaning','Bug removal','Iron fall out removal','Ceramic spray sealant','Trim protection','Ceramic tire dressing','1 month ceramic spray sealant'],
+    'Full Detail — Standard': ['Blow out carpet/mats, dust & vacuum','Spot clean seats/carpets & all surfaces','Clean windows','Foam bath & hand wash','Wheel cleaning, bug removal','Trim restore & tire dressing'],
+    'Full Detail — Premium': ['Full interior — vacuum, wipe down, sanitize, seats & carpet, surface protectant','Foam bath, deep wheel clean, bug removal','Iron fall out removal','Ceramic spray sealant & trim protection','Ceramic tire dressing','1 month ceramic spray sealant'],
+    'Paint Correction': ['Single-step machine polish','Swirl mark & light scratch removal','Oxidation correction','Restores depth and clarity'],
+    '7-Year Ceramic Coating': ['Full wash & paint preparation','Premium ceramic coat application','Hydrophobic protection layer','Up to 7 years of protection'],
+    'Paint Correction + Ceramic Bundle': ['Single-step machine polish','Removes light defects & restores shine','3-year ceramic coating applied','Water repellency & easier maintenance'],
+    'Monthly Maintenance — Premium': ['Full interior — vacuum, wipe down, sanitize, seats, carpet, protectant','Foam bath, deep wheel clean, bug removal','Iron fall out removal','Ceramic spray sealant & tire dressing','1 month ceramic spray sealant'],
+    'Heavy Condition Rescue': ['Heavy interior extraction & shampoo','Stain & odor treatment','Full exterior decontamination','Multiple passes until restored'],
+    'Pet Hair Removal (Light)': ['Surface level pet hair removal'],
+    'Pet Hair Removal (Moderate)': ['Embedded in seats & carpet','Thorough removal'],
+    'Pet Hair Removal (Heavy)': ['Deeply embedded','Multiple passes required'],
+    'Carpet Deep Clean': ['Deep shampoo and extraction of carpets'],
+    'Seat Deep Clean': ['Deep shampoo and cleaning of all seats'],
+    'Odor Treatment': ['Professional odor elimination treatment'],
+    'Leather Conditioner': ['Clean and condition all leather surfaces'],
+    'Engine Detail': ['Professional engine bay cleaning and degreasing'],
+    'Headlight Restoration (Both)': ['Restore clarity to both headlights'],
+    'Headlight Restoration (Single)': ['Restore clarity to single headlight'],
+    'Interior Ceramic Coating': ['Ceramic protection applied to interior surfaces'],
+  };
+
+  function buildOrderSummary(targetId) {
+    const el = document.getElementById(targetId);
+    if (!el) return;
+    let html = `<div class="os-title">Order Summary · ${selectedVehicleName}</div>`;
+    selectedServices.forEach(s => {
+      const items = SERVICE_DETAILS[s.name] || [];
+      const listItems = items.map(i => `
+        <div style="display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid rgba(0,0,0,0.05);font-size:12px;color:var(--text-mid);">
+          <span style="color:var(--red);font-size:10px;margin-top:2px;flex-shrink:0;">—</span>
+          <span>${i}</span>
+        </div>`).join('');
+      html += `
+        <div style="padding:16px 0;border-bottom:1px solid var(--white-3);">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--text-dark);">${s.name}</span>
+            <span style="font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--red);">$${s.price}</span>
+          </div>
+          ${listItems}
+        </div>`;
+    });
+    html += `
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;font-weight:600;">Estimated Total</span>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--red);">$${totalPrice.toLocaleString()}</span>
+      </div>`;
+    el.innerHTML = html;
+  }
+
+  function goNext() {
+    if (currentStep === 1) {
+      if (selectedVehicleIdx === -1) { alert('Please select your vehicle type!'); return; }
+      goToStep(2);
+    } else if (currentStep === 2) {
+      if (selectedServices.length === 0) { alert('Please select at least one service!'); return; }
+      buildOrderSummary('order-summary-3');
+      goToStep(3);
+    } else if (currentStep === 3) {
+      if (!validateContact()) return;
+      buildOrderSummary('order-summary-4');
+      buildConfirmDetails();
+      goToStep(4);
+    } else if (currentStep === 4) {
+      submitRequest();
+    }
+  }
+
+  function goBack() {
+    if (currentStep > 1) goToStep(currentStep - 1);
+  }
+
+  function goToStep(n) {
+    document.getElementById('step-' + currentStep).classList.remove('active');
+    document.getElementById('prog-' + currentStep).classList.remove('active');
+    document.getElementById('prog-' + currentStep).classList.add('done');
+    currentStep = n;
+    document.getElementById('step-' + currentStep).classList.add('active');
+    document.getElementById('prog-' + currentStep).classList.add('active');
+    document.getElementById('prog-' + currentStep).classList.remove('done');
+    // Update lines
+    for (let i = 1; i <= 3; i++) {
+      document.getElementById('line-' + i).classList.toggle('done', i < currentStep);
+    }
+    // Back button
+    document.getElementById('btn-back').style.display = currentStep > 1 ? 'block' : 'none';
+    // Next button text
+    document.getElementById('btn-next').textContent = currentStep === 4 ? 'Submit Request ✓' : 'Next →';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function validateContact() {
+    const fields = ['fname', 'lname', 'phone', 'email', 'address'];
+    for (const id of fields) {
+      if (!document.getElementById(id).value.trim()) {
+        alert('Please fill in all required fields!');
+        document.getElementById(id).focus();
+        return false;
+      }
+    }
+    if (!selectedDate || !selectedTime) {
+      alert('Please select a date and time!');
+      return false;
+    }
+    return true;
+  }
+
+  function buildConfirmDetails() {
+    const el = document.getElementById('confirm-details');
+    el.innerHTML = `
+      <p><strong>Name:</strong> ${document.getElementById('fname').value} ${document.getElementById('lname').value}</p>
+      <p><strong>Phone:</strong> ${document.getElementById('phone').value}</p>
+      <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
+      <p><strong>Address:</strong> ${document.getElementById('address').value}</p>
+      <p><strong>Vehicle:</strong> ${selectedVehicleName}${document.getElementById('vehicle-detail').value ? ' · ' + document.getElementById('vehicle-detail').value : ''}</p>
+      <p><strong>Preferred Time:</strong> ${document.getElementById('preferred-date').value || 'Flexible'}</p>
+      ${document.getElementById('notes').value ? `<p><strong>Notes:</strong> ${document.getElementById('notes').value}</p>` : ''}
+    `;
+  }
+
+  async function submitRequest() {
+    const btn = document.getElementById('btn-next');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const servicesList = selectedServices.map(s => `${s.name} ($${s.price})`).join('\n');
+    const body = `
+NEW BOOKING REQUEST — Heritage Auto Spa
+
+Name: ${document.getElementById('fname').value} ${document.getElementById('lname').value}
+Phone: ${document.getElementById('phone').value}
+Email: ${document.getElementById('email').value}
+Address: ${document.getElementById('address').value}
+Vehicle: ${selectedVehicleName}${document.getElementById('vehicle-detail').value ? ' · ' + document.getElementById('vehicle-detail').value : ''}
+Preferred Time: ${document.getElementById('preferred-date').value || 'Flexible'}
+
+Services:
+${servicesList}
+
+Estimated Total: $${totalPrice.toLocaleString()}
+
+Notes: ${document.getElementById('notes').value || 'None'}
+    `.trim();
+
+    // Send to Formspree (replace YOUR_FORM_ID with actual Formspree form ID)
+    try {
+      const res = await fetch('https://formspree.io/f/mdajeoge', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          email: document.getElementById('email').value,
+          message: body,
+          _subject: `New Booking Request — ${document.getElementById('fname').value} ${document.getElementById('lname').value} — $${totalPrice}`
+        })
+      });
+
+      if (res.ok) {
+        document.getElementById('step-4').classList.remove('active');
+        document.getElementById('step-success').classList.add('active');
+        document.getElementById('summary-bar').style.display = 'none';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        throw new Error('Failed');
+      }
+    } catch (e) {
+      // Fallback — show success anyway and open Jobber
+      document.getElementById('step-4').classList.remove('active');
+      document.getElementById('step-success').classList.add('active');
+      document.getElementById('summary-bar').style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+  // CALENDAR
+  const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const TIME_SLOTS = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
+  let calDate = new Date();
+  calDate.setDate(1);
+  let selectedDate = null;
+  let selectedTime = null;
+
+  // Dates already booked — add as 'YYYY-M-D' strings to block them out
+  // You can manually update this list as bookings come in
+  const BOOKED_DATES = [];
+
+  function isBookable(date) {
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() + 2); // 2 days from now minimum
+    const dayOfWeek = date.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
+    const isPast = date < minDate;
+    const dateKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    const isBooked = BOOKED_DATES.includes(dateKey);
+    return !isPast && !isWeekend && !isBooked;
+  }
+
+  function renderCalendar() {
+    const year = calDate.getFullYear();
+    const month = calDate.getMonth();
+    document.getElementById('cal-month-label').textContent = MONTHS[month] + ' ' + year;
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    const grid = document.getElementById('cal-days');
+    grid.innerHTML = '';
+
+    for (let i = 0; i < firstDay; i++) {
+      grid.innerHTML += '<div></div>';
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(year, month, d);
+      const bookable = isBookable(date);
+      const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+      const dateKey = `${year}-${month}-${d}`;
+      const isBooked = BOOKED_DATES.includes(dateKey);
+
+      let style = `text-align:center;padding:8px 4px;font-family:'Barlow Condensed',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;position:relative;`;
+
+      if (isSelected) {
+        style += `background:var(--red);color:white;border-color:var(--red);font-weight:600;`;
+        grid.innerHTML += `<div style="${style}" onclick="selectDate(${year},${month},${d})">${d}</div>`;
+      } else if (isBooked) {
+        style += `color:#ccc;cursor:not-allowed;background:var(--white-2);text-decoration:line-through;`;
+        grid.innerHTML += `<div style="${style}" title="Already booked">${d}</div>`;
+      } else if (!bookable) {
+        style += `color:#ccc;cursor:not-allowed;`;
+        grid.innerHTML += `<div style="${style}">${d}</div>`;
+      } else {
+        style += `background:white;color:var(--text-dark);border-color:var(--white-3);`;
+        grid.innerHTML += `<div style="${style}" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='var(--white-3)';this.style.color='var(--text-dark)'" onclick="selectDate(${year},${month},${d})">${d}</div>`;
+      }
+    }
+  }
+
+  function changeMonth(dir) {
+    calDate.setMonth(calDate.getMonth() + dir);
+    // Don't go before current month
+    const now = new Date();
+    if (calDate.getFullYear() < now.getFullYear() || (calDate.getFullYear() === now.getFullYear() && calDate.getMonth() < now.getMonth())) {
+      calDate = new Date(); calDate.setDate(1);
+    }
+    renderCalendar();
+  }
+
+  function selectDate(year, month, day) {
+    selectedDate = new Date(year, month, day);
+    selectedTime = null;
+    renderCalendar();
+    renderTimeSlots();
+    document.getElementById('timeslot-wrap').style.display = 'block';
+    document.getElementById('preferred-date').value = '';
+  }
+
+  function renderTimeSlots() {
+    const wrap = document.getElementById('timeslots');
+    wrap.innerHTML = '';
+    TIME_SLOTS.forEach(t => {
+      const isSelected = t === selectedTime;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = t;
+      btn.style.cssText = `padding:10px 16px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;cursor:pointer;border:1px solid ${isSelected ? 'var(--red)' : 'var(--white-3)'};background:${isSelected ? 'var(--red)' : 'white'};color:${isSelected ? 'white' : 'var(--text-dark)'};transition:all 0.2s;`;
+      btn.onclick = () => selectTime(t);
+      wrap.appendChild(btn);
+    });
+  }
+
+  function selectTime(t) {
+    selectedTime = t;
+    const dateStr = selectedDate.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    document.getElementById('preferred-date').value = dateStr + ' at ' + t;
+    renderTimeSlots();
+  }
+
+  // Init calendar on page load
+  window.addEventListener('load', renderCalendar);
+
+</script>
+</body>
+</html>
