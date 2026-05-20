@@ -628,8 +628,19 @@
           <input type="text" id="address" placeholder="123 Main St, Colleyville TX 76034" required/>
         </div>
         <div class="fg full">
-          <label>Vehicle Year, Make & Model</label>
-          <input type="text" id="vehicle-detail" placeholder="e.g. 2022 Ford F-150"/>
+          <label>Vehicle Year, Make & Model *</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <select id="veh-year" onchange="loadMakes()" style="background:var(--white-2);border:1px solid var(--white-3);color:var(--text-dark);padding:12px 14px;font-size:14px;font-family:'Barlow',sans-serif;outline:none;">
+              <option value="">Year</option>
+            </select>
+            <select id="veh-make" onchange="loadModels()" disabled style="background:var(--white-2);border:1px solid var(--white-3);color:var(--text-dark);padding:12px 14px;font-size:14px;font-family:'Barlow',sans-serif;outline:none;opacity:0.5;">
+              <option value="">Make</option>
+            </select>
+            <select id="veh-model" onchange="updateVehicleDetail()" disabled style="background:var(--white-2);border:1px solid var(--white-3);color:var(--text-dark);padding:12px 14px;font-size:14px;font-family:'Barlow',sans-serif;outline:none;opacity:0.5;">
+              <option value="">Model</option>
+            </select>
+          </div>
+          <input type="hidden" id="vehicle-detail"/>
         </div>
         <div class="fg full">
           <label>Select Date *</label>
@@ -856,6 +867,10 @@
         return false;
       }
     }
+    if (!document.getElementById('vehicle-detail').value) {
+      alert('Please select your vehicle year, make and model!');
+      return false;
+    }
     if (!selectedDate || !selectedTime) {
       alert('Please select a date and time!');
       return false;
@@ -1033,8 +1048,81 @@ Notes: ${document.getElementById('notes').value || 'None'}
     renderTimeSlots();
   }
 
-  // Init calendar on page load
-  window.addEventListener('load', renderCalendar);
+  // VEHICLE DROPDOWNS
+  function initYears() {
+    const sel = document.getElementById('veh-year');
+    const currentYear = new Date().getFullYear();
+    for (let y = currentYear; y >= 1990; y--) {
+      sel.innerHTML += `<option value="${y}">${y}</option>`;
+    }
+  }
+
+  async function loadMakes() {
+    const year = document.getElementById('veh-year').value;
+    const makeEl = document.getElementById('veh-make');
+    const modelEl = document.getElementById('veh-model');
+    makeEl.innerHTML = '<option value="">Loading...</option>';
+    makeEl.disabled = true;
+    modelEl.innerHTML = '<option value="">Model</option>';
+    modelEl.disabled = true;
+    modelEl.style.opacity = '0.5';
+    document.getElementById('vehicle-detail').value = '';
+    if (!year) return;
+    try {
+      const res = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json`);
+      const data = await res.json();
+      const makes = data.Results.sort((a,b) => a.MakeName.localeCompare(b.MakeName));
+      makeEl.innerHTML = '<option value="">Select Make</option>';
+      makes.forEach(m => {
+        makeEl.innerHTML += `<option value="${m.MakeId}">${m.MakeName}</option>`;
+      });
+      makeEl.disabled = false;
+      makeEl.style.opacity = '1';
+    } catch(e) {
+      makeEl.innerHTML = '<option value="">Error loading</option>';
+    }
+  }
+
+  async function loadModels() {
+    const year = document.getElementById('veh-year').value;
+    const makeId = document.getElementById('veh-make').value;
+    const makeName = document.getElementById('veh-make').options[document.getElementById('veh-make').selectedIndex].text;
+    const modelEl = document.getElementById('veh-model');
+    modelEl.innerHTML = '<option value="">Loading...</option>';
+    modelEl.disabled = true;
+    modelEl.style.opacity = '0.5';
+    document.getElementById('vehicle-detail').value = '';
+    if (!makeId) return;
+    try {
+      const res = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/${makeId}/modelyear/${year}/vehicleType/car?format=json`);
+      const data = await res.json();
+      let models = data.Results.sort((a,b) => a.Model_Name.localeCompare(b.Model_Name));
+      if (models.length === 0) {
+        const res2 = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeId/${makeId}?format=json`);
+        const data2 = await res2.json();
+        models = data2.Results.sort((a,b) => a.Model_Name.localeCompare(b.Model_Name));
+      }
+      modelEl.innerHTML = '<option value="">Select Model</option>';
+      models.forEach(m => {
+        modelEl.innerHTML += `<option value="${m.Model_Name}">${m.Model_Name}</option>`;
+      });
+      modelEl.disabled = false;
+      modelEl.style.opacity = '1';
+    } catch(e) {
+      modelEl.innerHTML = '<option value="">Error loading</option>';
+    }
+  }
+
+  function updateVehicleDetail() {
+    const year = document.getElementById('veh-year').value;
+    const make = document.getElementById('veh-make').options[document.getElementById('veh-make').selectedIndex].text;
+    const model = document.getElementById('veh-model').value;
+    if (year && make && model && make !== 'Select Make' && model !== 'Select Model') {
+      document.getElementById('vehicle-detail').value = `${year} ${make} ${model}`;
+    }
+  }
+
+  window.addEventListener('load', () => { renderCalendar(); initYears(); });
 
 </script>
 </body>
