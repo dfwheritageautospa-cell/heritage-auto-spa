@@ -371,6 +371,25 @@
       .footer-top { grid-template-columns: 1fr; }
       .fbrand { grid-column: span 1; }
     }
+
+    /* Mobile: hide the duplicate logo in About, keep truck */
+    @media (max-width: 960px) {
+      .about-logo-large { display: none; }
+
+      /* About Nate — stack cleanly on mobile */
+      #about-nate { padding: 56px 20px !important; }
+      #about-nate > div {
+        grid-template-columns: 1fr !important;
+        gap: 36px !important;
+      }
+      #about-nate .section-title { font-size: clamp(36px, 10vw, 52px); }
+      #about-nate .section-body { font-size: 14px; }
+      #about-nate .reveal:last-child { order: -1; }
+      #about-nate img { aspect-ratio: 3/2 !important; object-fit: cover; object-position: center top; }
+      #about-nate > div > .reveal:last-child > div {
+        aspect-ratio: 3/2 !important;
+      }
+    }
   </style>
 </head>
 <body>
