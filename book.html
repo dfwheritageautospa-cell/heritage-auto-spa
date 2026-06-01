@@ -623,7 +623,8 @@
           <input type="hidden" id="vehicle-detail"/>
         </div>
         <div class="fg full">
-          <label>Select Date *</label>
+          <label style="font-size:15px;font-weight:800;color:var(--text-dark);letter-spacing:0.5px;">📅 Pick Up To 3 Dates <span style="font-weight:500;font-size:12px;color:var(--text-mid);"> — Nate confirms which works</span></label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;" id="selected-dates-display"></div>
           <div id="calendar-wrap" style="background:var(--white-2);border:1px solid var(--white-3);padding:16px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
               <button type="button" onclick="changeMonth(-1)" style="background:none;border:1px solid var(--white-3);padding:6px 12px;cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:13px;color:var(--text-mid);">◀</button>
@@ -643,11 +644,14 @@
           </div>
         </div>
 
-        <div class="fg full" id="timeslot-wrap" style="display:none;">
-          <label>Select Time *</label>
-          <div id="timeslots" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
-          <input type="hidden" id="preferred-date" required/>
+        <!-- PHOTO UPLOAD — shown when interior/full detail/heavy rescue selected -->
+        <div class="fg full" id="photo-upload-wrap" style="display:none;">
+          <label style="font-size:15px;font-weight:800;color:var(--red);letter-spacing:0.5px;">📸 Upload At Least 3 Interior Photos <span style="font-weight:500;font-size:12px;color:var(--text-mid);"> — required to proceed</span></label>
+          <p style="font-size:12px;color:var(--text-mid);margin-bottom:10px;">Please upload at least 3 photos of your vehicle's interior so Nate can prepare for your service.</p>
+          <input type="file" id="interior-photos" accept="image/*" multiple style="background:var(--white-2);border:1px solid var(--white-3);padding:12px;width:100%;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text-mid);cursor:pointer;" onchange="handlePhotoUpload(this)"/>
+          <div id="photo-count-msg" style="margin-top:8px;font-size:12px;color:var(--text-mid);"></div>
         </div>
+
         <div class="fg full">
           <label>Additional Notes</label>
           <textarea id="notes" placeholder="Any specific concerns, stains, pet hair, etc..."></textarea>
@@ -739,6 +743,7 @@
       selectedServices = selectedServices.filter(s => s.name !== name);
     }
     updateTotal();
+    checkPhotoUploadVisibility();
   }
 
   function updateTotal() {
@@ -862,9 +867,17 @@
       alert('Please select your vehicle year, make and model!');
       return false;
     }
-    if (!selectedDate || !selectedTime) {
-      alert('Please select a date and time!');
+    if (selectedDates.length === 0) {
+      alert('Please select at least 1 preferred date!');
       return false;
+    }
+    if (photosRequired()) {
+      const photoInput = document.getElementById('interior-photos');
+      if (!photoInput.files || photoInput.files.length < 3) {
+        alert('Please upload at least 3 interior photos before continuing.');
+        photoInput.focus();
+        return false;
+      }
     }
     return true;
   }
@@ -877,7 +890,7 @@
       <p><strong>Email:</strong> ${document.getElementById('email').value}</p>
       <p><strong>Address:</strong> ${document.getElementById('address').value}</p>
       <p><strong>Vehicle:</strong> ${selectedVehicleName}${document.getElementById('vehicle-detail').value ? ' · ' + document.getElementById('vehicle-detail').value : ''}</p>
-      <p><strong>Preferred Time:</strong> ${document.getElementById('preferred-date').value || 'Flexible'}</p>
+      <p><strong>Preferred Dates:</strong> ${selectedDates.map(d => d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' })).join(' · ')}</p>
       ${document.getElementById('notes').value ? `<p><strong>Notes:</strong> ${document.getElementById('notes').value}</p>` : ''}
     `;
   }
@@ -893,7 +906,7 @@
     const email = document.getElementById('email').value;
     const address = document.getElementById('address').value;
     const vehicleDetail = document.getElementById('vehicle-detail').value;
-    const preferredDate = document.getElementById('preferred-date').value;
+    const preferredDates = selectedDates.map(d => d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' })).join(', ');
     const notes = document.getElementById('notes').value;
     const servicesList = selectedServices.map(s => `${s.name} ($${s.price})`).join('\n');
 
@@ -906,7 +919,7 @@ Phone: ${phone}
 Email: ${email}
 Address: ${address}
 Vehicle: ${selectedVehicleName}${vehicleDetail ? ' · ' + vehicleDetail : ''}
-Date & Time: ${preferredDate}
+Date & Time: ${preferredDates}
 
 Services:
 ${servicesList}
@@ -922,7 +935,7 @@ Hi ${fname}!
 
 Thanks for booking with Heritage Auto Spa! Here's a summary of your request:
 
-📅 Date & Time: ${preferredDate}
+📅 Date & Time: ${preferredDates}
 🚗 Vehicle: ${vehicleDetail} (${selectedVehicleName})
 📍 Address: ${address}
 
@@ -944,9 +957,9 @@ dfwheritageautospa.com
       document.getElementById('step-success').classList.add('active');
       document.getElementById('summary-bar').style.display = 'none';
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (selectedDate) {
-        const blockKey = `${selectedDate.getFullYear()}-${selectedDate.getMonth()}-${selectedDate.getDate()}`;
-        document.getElementById('block-date-reminder').textContent = `📌 Remember to block this date in book.html: '${blockKey}'`;
+      if (selectedDates.length > 0) {
+        const blockKeys = selectedDates.map(d => `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`).join(', ');
+        document.getElementById('block-date-reminder').textContent = `📌 Preferred dates submitted: ${blockKeys} — confirm one with the client and block it in book.html.`;
         document.getElementById('block-date-reminder').style.display = 'block';
       }
     }
@@ -959,7 +972,7 @@ dfwheritageautospa.com
         body: JSON.stringify({
           email: 'dfwheritageautospa@gmail.com',
           message: nateBody,
-          _subject: `🔔 New Booking — ${fname} ${lname} — ${preferredDate} — $${totalPrice}`,
+          _subject: `🔔 New Booking — ${fname} ${lname} — ${preferredDates} — $${totalPrice}`,
         })
       });
 
@@ -970,7 +983,7 @@ dfwheritageautospa.com
         body: JSON.stringify({
           email: email,
           message: customerBody,
-          _subject: `Your Heritage Auto Spa Booking Request — ${preferredDate}`,
+          _subject: `Your Heritage Auto Spa Booking Request — ${preferredDates}`,
           _replyto: 'dfwheritageautospa@gmail.com',
         })
       });
@@ -985,8 +998,7 @@ dfwheritageautospa.com
   const TIME_SLOTS = ['9:00 AM','10:00 AM','11:00 AM','12:00 PM','1:00 PM','2:00 PM','3:00 PM','4:00 PM','5:00 PM'];
   let calDate = new Date();
   calDate.setDate(1);
-  let selectedDate = null;
-  let selectedTime = null;
+  let selectedDates = []; // up to 3
 
   // ─── BOOKED DATES ───────────────────────────────────────────────
   // Add dates here to block them out (one booking per day).
@@ -1031,7 +1043,7 @@ dfwheritageautospa.com
     for (let d = 1; d <= daysInMonth; d++) {
       const date = new Date(year, month, d);
       const bookable = isBookable(date);
-      const isSelected = selectedDate && date.toDateString() === selectedDate.toDateString();
+      const isSelected = selectedDates.some(d => d.toDateString() === date.toDateString());
       const dateKey = `${year}-${month}-${d}`;
       const isBooked = BOOKED_DATES.includes(dateKey);
 
@@ -1064,33 +1076,60 @@ dfwheritageautospa.com
   }
 
   function selectDate(year, month, day) {
-    selectedDate = new Date(year, month, day);
-    selectedTime = null;
+    const clicked = new Date(year, month, day);
+    const key = clicked.toDateString();
+    const idx = selectedDates.findIndex(d => d.toDateString() === key);
+    if (idx > -1) {
+      // deselect
+      selectedDates.splice(idx, 1);
+    } else {
+      if (selectedDates.length >= 3) {
+        alert('You can select up to 3 preferred dates.');
+        return;
+      }
+      selectedDates.push(clicked);
+    }
     renderCalendar();
-    renderTimeSlots();
-    document.getElementById('timeslot-wrap').style.display = 'block';
-    document.getElementById('preferred-date').value = '';
+    renderSelectedDates();
   }
 
-  function renderTimeSlots() {
-    const wrap = document.getElementById('timeslots');
+  function renderSelectedDates() {
+    const wrap = document.getElementById('selected-dates-display');
     wrap.innerHTML = '';
-    TIME_SLOTS.forEach(t => {
-      const isSelected = t === selectedTime;
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = t;
-      btn.style.cssText = `padding:10px 16px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;cursor:pointer;border:1px solid ${isSelected ? 'var(--red)' : 'var(--white-3)'};background:${isSelected ? 'var(--red)' : 'white'};color:${isSelected ? 'white' : 'var(--text-dark)'};transition:all 0.2s;`;
-      btn.onclick = () => selectTime(t);
-      wrap.appendChild(btn);
+    selectedDates.forEach((d, i) => {
+      const label = d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+      wrap.innerHTML += `<div style="background:var(--red);color:white;padding:6px 12px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;display:flex;align-items:center;gap:8px;">${label} <span onclick="removeDate(${i})" style="cursor:pointer;font-size:16px;line-height:1;">×</span></div>`;
     });
   }
 
-  function selectTime(t) {
-    selectedTime = t;
-    const dateStr = selectedDate.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-    document.getElementById('preferred-date').value = dateStr + ' at ' + t;
-    renderTimeSlots();
+  function removeDate(idx) {
+    selectedDates.splice(idx, 1);
+    renderCalendar();
+    renderSelectedDates();
+  }
+
+  function handlePhotoUpload(input) {
+    const count = input.files.length;
+    const msg = document.getElementById('photo-count-msg');
+    if (count < 3) {
+      msg.style.color = 'var(--red)';
+      msg.textContent = `${count} photo${count !== 1 ? 's' : ''} selected — please upload at least 3.`;
+    } else {
+      msg.style.color = 'green';
+      msg.textContent = `✓ ${count} photos selected`;
+    }
+  }
+
+  function photosRequired() {
+    return selectedServices.some(s =>
+      s.name === 'Interior Detail — Premium' ||
+      s.name === 'Full Detail — Premium' ||
+      s.name === 'Heavy Condition Rescue'
+    );
+  }
+
+  function checkPhotoUploadVisibility() {
+    document.getElementById('photo-upload-wrap').style.display = photosRequired() ? 'block' : 'none';
   }
 
   // VEHICLE DATABASE
