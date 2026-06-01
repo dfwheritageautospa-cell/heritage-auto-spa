@@ -646,8 +646,8 @@
 
         <!-- PHOTO UPLOAD — shown when interior/full detail/heavy rescue selected -->
         <div class="fg full" id="photo-upload-wrap" style="display:none;">
-          <label style="font-size:15px;font-weight:800;color:var(--red);letter-spacing:0.5px;">📸 Upload At Least 3 Interior Photos <span style="font-weight:500;font-size:12px;color:var(--text-mid);"> — required to proceed</span></label>
-          <p style="font-size:12px;color:var(--text-mid);margin-bottom:10px;">Please upload at least 3 photos of your vehicle's interior so Nate can prepare for your service.</p>
+          <label style="font-size:15px;font-weight:800;color:var(--red);letter-spacing:0.5px;">📸 Upload Interior Photos <span style="font-weight:500;font-size:12px;color:var(--text-mid);"> — optional but helpful</span></label>
+          <p style="font-size:12px;color:var(--text-mid);margin-bottom:10px;">Uploading photos helps Nate prepare for your service. Include front seats, rear seats, and carpets if possible.</p>
           <input type="file" id="interior-photos" accept="image/*" multiple style="background:var(--white-2);border:1px solid var(--white-3);padding:12px;width:100%;font-family:'Barlow',sans-serif;font-size:13px;color:var(--text-mid);cursor:pointer;" onchange="handlePhotoUpload(this)"/>
           <div id="photo-count-msg" style="margin-top:8px;font-size:12px;color:var(--text-mid);"></div>
         </div>
@@ -680,7 +680,7 @@
       </p>
       <br><br>
       <a href="/" style="display:inline-block;background:var(--red);color:white;padding:14px 32px;font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;">Back to Site</a>
-      <div id="block-date-reminder" style="display:none;margin-top:24px;background:#fff3cd;border:1px solid #ffc107;padding:12px 16px;font-size:13px;color:#856404;text-align:left;border-radius:4px;"></div>
+      <div id="block-date-reminder" style="display:none;"></div>
     </div>
   </div>
 
@@ -870,14 +870,6 @@
     if (selectedDates.length === 0) {
       alert('Please select at least 1 preferred date!');
       return false;
-    }
-    if (photosRequired()) {
-      const photoInput = document.getElementById('interior-photos');
-      if (!photoInput.files || photoInput.files.length < 3) {
-        alert('Please upload at least 3 interior photos before continuing.');
-        photoInput.focus();
-        return false;
-      }
     }
     return true;
   }
