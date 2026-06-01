@@ -417,16 +417,6 @@
 
     <div class="services-group">
       <div class="services-group-title">Interior <span>Services</span></div>
-      <div class="service-option" onclick="toggleService(this, 'Interior Detail — Standard', [65,80,95])">
-        <div class="so-left">
-          <div class="so-check"></div>
-          <div class="so-info">
-            <div class="so-name">Interior Detail — Standard</div>
-            <div class="so-desc">Vacuum, dust, spot clean, surfaces, windows · 1.5 hr+</div>
-          </div>
-        </div>
-        <div class="so-price" data-prices="65,80,95">$65</div>
-      </div>
       <div class="service-option" onclick="toggleService(this, 'Interior Detail — Premium', [100,120,135])">
         <div class="so-left">
           <div class="so-check"></div>
@@ -465,16 +455,6 @@
 
     <div class="services-group">
       <div class="services-group-title">Full Detail <span>Packages</span></div>
-      <div class="service-option" onclick="toggleService(this, 'Full Detail — Standard', [150,175,199])">
-        <div class="so-left">
-          <div class="so-check"></div>
-          <div class="so-info">
-            <div class="so-name">Full Detail — Standard</div>
-            <div class="so-desc">Interior refresh + exterior clean · 3.5 hr+</div>
-          </div>
-        </div>
-        <div class="so-price" data-prices="150,175,199">$150</div>
-      </div>
       <div class="service-option" onclick="toggleService(this, 'Full Detail — Premium', [195,229,259])">
         <div class="so-left">
           <div class="so-check"></div>
@@ -772,11 +752,9 @@
   }
 
   const SERVICE_DETAILS = {
-    'Interior Detail — Standard': ['Blow out carpet and mats','Dust & vacuum','Spot clean seats/carpets','Clean and sanitize all surfaces','Clean windows'],
     'Interior Detail — Premium': ['Blow out carpet and mats','Dust / vacuum','Plastic / vinyl wipe down','Sanitize and clean all surfaces','Clean seats & carpet','Interior windows','Interior surface protectant'],
     'Exterior Detail — Standard': ['Foam bath & hand wash','Wheel cleaning','Bug removal','Trim restore','Tire dressing'],
     'Exterior Detail — Premium': ['Foam bath & hand wash','Deep wheel cleaning','Bug removal','Iron fall out removal','Ceramic spray sealant','Trim protection','Ceramic tire dressing','1 month ceramic spray sealant'],
-    'Full Detail — Standard': ['Blow out carpet/mats, dust & vacuum','Spot clean seats/carpets & all surfaces','Clean windows','Foam bath & hand wash','Wheel cleaning, bug removal','Trim restore & tire dressing'],
     'Full Detail — Premium': ['Full interior — vacuum, wipe down, sanitize, seats & carpet, surface protectant','Foam bath, deep wheel clean, bug removal','Iron fall out removal','Ceramic spray sealant & trim protection','Ceramic tire dressing','1 month ceramic spray sealant'],
     'Paint Correction': ['Single-step machine polish','Swirl mark & light scratch removal','Oxidation correction','Restores depth and clarity'],
     '7-Year Ceramic Coating': ['Full wash & paint preparation','Premium ceramic coat application','Hydrophobic protection layer','Up to 7 years of protection'],
