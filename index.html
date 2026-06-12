@@ -390,6 +390,46 @@
         aspect-ratio: 3/2 !important;
       }
     }
+    /* COMPACT SERVICE CARDS + MODAL */
+    .svc-compact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+    .svc-compact-card { position: relative; aspect-ratio: 1.2; overflow: hidden; cursor: pointer; border-bottom: 3px solid transparent; transition: border-color 0.3s; }
+    .svc-compact-card:hover { border-bottom-color: var(--red); }
+    .svc-compact-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease, filter 0.4s ease; display: block; }
+    .svc-compact-card:hover img { transform: scale(1.05); filter: brightness(0.55); }
+    .svc-compact-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.85) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 24px; }
+    .svc-compact-title { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px; color: var(--white); line-height: 1.1; }
+    .svc-compact-title .red { color: var(--red-bright); }
+    .svc-compact-desc { font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 8px; line-height: 1.5; }
+    .svc-compact-link { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red-bright); font-weight: 700; margin-top: 14px; display: inline-flex; align-items: center; gap: 6px; }
+    @media (max-width: 900px) { .svc-compact-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) { .svc-compact-grid { grid-template-columns: 1fr; } .svc-compact-card { aspect-ratio: 1.4; } }
+
+    /* MODAL */
+    .svc-modal-bg { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); z-index: 9999; align-items: center; justify-content: center; padding: 20px; }
+    .svc-modal-bg.active { display: flex; }
+    .svc-modal { background: #111315; max-width: 760px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 36px; position: relative; border-top: 3px solid var(--red); }
+    .svc-modal-close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border: 1px solid var(--red); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--red); cursor: pointer; font-size: 18px; transition: background 0.2s, color 0.2s; background: transparent; }
+    .svc-modal-close:hover { background: var(--red); color: white; }
+    .svc-modal-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 10px; }
+    .svc-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: 2px; color: var(--white); margin-bottom: 8px; }
+    .svc-modal-intro { font-size: 13px; color: rgba(255,255,255,0.55); font-style: italic; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .svc-modal-section { margin-bottom: 22px; }
+    .svc-modal-section h4 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 2px; color: var(--white); margin-bottom: 6px; text-transform: uppercase; }
+    .svc-modal-section .sub { font-size: 12px; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
+    .svc-modal-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+    .svc-modal-cols h5 { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--red-bright); margin: 14px 0 8px; }
+    .svc-modal-cols ul, .svc-modal-section > ul { list-style: none; padding: 0; margin: 0; }
+    .svc-modal-cols li, .svc-modal-section > ul li { font-size: 13px; color: rgba(255,255,255,0.8); padding: 4px 0 4px 16px; position: relative; }
+    .svc-modal-cols li::before, .svc-modal-section > ul li::before { content: '•'; position: absolute; left: 0; color: var(--red-bright); }
+    .svc-modal-cols li.star::before, .svc-modal-section > ul li.star::before { content: '★'; }
+    .svc-modal-pricing { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; background: rgba(204,34,34,0.08); border-left: 3px solid var(--red); padding: 16px; }
+    .svc-modal-pricing .ptype { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+    .svc-modal-pricing .pval { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--red-bright); letter-spacing: 1px; }
+    .svc-modal-photo-note { background: rgba(204,34,34,0.1); border-left: 3px solid var(--red); padding: 12px 16px; margin-top: 18px; font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.6; }
+    .svc-modal-photo-note strong { color: var(--red-bright); }
+    .svc-modal-cta { display: block; text-align: center; margin-top: 26px; background: var(--red); color: white; padding: 14px; font-family: 'Barlow Condensed', sans-serif; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+    .svc-modal-cta:hover { background: var(--red-bright); }
+    @media (max-width: 600px) { .svc-modal-cols, .svc-modal-pricing { grid-template-columns: 1fr; } .svc-modal { padding: 24px; } .svc-modal-title { font-size: 30px; } }
   </style>
 </head>
 <body>
@@ -557,259 +597,286 @@
     <div class="reveal">
       <div class="section-label">What We Offer</div>
       <h2 class="section-title">Our <span class="red">Services</span></h2>
-      <p class="section-body">16 packages across interior, exterior, full detail, paint correction, ceramic coating, monthly maintenance, and restorative services. Priced by vehicle size.</p>
+      <p class="section-body">Mobile detailing, paint correction, ceramic coating, restorative rescue, and monthly maintenance — all priced by vehicle size. Tap a card to view full pricing.</p>
     </div>
     <a href="/book.html" target="_blank" class="btn-red reveal" style="align-self:flex-end;padding:10px 20px;font-size:10px;width:fit-content;">Book a Service →</a>
   </div>
-  <div class="services-grid">
+  <div class="svc-compact-grid">
 
-    <!-- INTERIOR -->
-    <div class="svc-category"><span style="color:var(--text-dark);">Interior</span> <span style="color:var(--red);">Services</span></div>
-
-    <div class="svc-card reveal" data-num="02">
-      <div class="svc-icon">🛋️</div>
-      <div class="svc-name">Interior Detail — Premium</div>
-      <p class="svc-desc">Deep clean that removes embedded dirt, odors, and buildup. Improves comfort and overall air quality. 2 hr 30 min+</p>
-      <ul class="svc-list">
-        <li>Remove mats / Blow out carpet &amp; mats</li>
-        <li>Dust &amp; vacuum throughout</li>
-        <li>Spray carpet cleaner / Drill brush</li>
-        <li>Sanitize &amp; wipe down all surfaces</li>
-        <li>Wipe down seats (stain removal not included)</li>
-        <li>Interior windows cleaned</li>
-        <li>Surface protectant applied</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$100</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$120</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$135</span></div>
+    <div class="svc-compact-card reveal" onclick="openSvcModal('modal-mobile')">
+      <img src="porsche-front-exterior-after.jpg" alt="Mobile Detailing - Heritage Auto Spa"/>
+      <div class="svc-compact-overlay">
+        <div class="svc-compact-title">MOBILE<br><span class="red">DETAILING</span></div>
+        <div class="svc-compact-desc">Interior, Exterior &amp; Full Detail packages — we come to you.</div>
+        <div class="svc-compact-link">View Pricing →</div>
       </div>
-      <div style="background:#fff8f8;border-left:3px solid var(--red);padding:10px 14px;margin-bottom:14px;">
-        <p style="font-size:12px;font-weight:700;color:var(--red);margin:0 0 4px 0;letter-spacing:0.3px;">📸 PHOTOS REQUIRED AT BOOKING</p>
-        <p style="font-size:11px;color:var(--text-mid);margin:0;line-height:1.5;">You will be asked to upload at least 3 photos of your interior — please include the <strong>front seats</strong>, <strong>rear seats</strong>, and <strong>carpets / floor mats</strong>.</p>
-      </div>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <div style="background:transparent;"></div>
-
-    <!-- EXTERIOR -->
-    <div class="svc-category"><span style="color:var(--red);">Exterior</span> <span style="color:var(--text-dark);">Services</span></div>
-
-    <div class="svc-card reveal" data-num="03">
-      <div class="svc-icon">✨</div>
-      <div class="svc-name">Exterior Detail — Standard</div>
-      <p class="svc-desc">Clean, polished look without extensive decontamination. Removes surface dirt and adds short-term protection. 1 hr 15 min+</p>
-      <ul class="svc-list">
-        <li>Foam bath &amp; contact wash</li>
-        <li>Wheel cleaning</li>
-        <li>Bug removal</li>
-        <li>Trim protection</li>
-        <li>Tire dressing</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$65</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$80</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$95</span></div>
+    <div class="svc-compact-card reveal" onclick="openSvcModal('modal-ceramic')">
+      <img src="mercedes-front-exterior-after.jpg" alt="Paint Correction and Ceramic Coating - Heritage Auto Spa"/>
+      <div class="svc-compact-overlay">
+        <div class="svc-compact-title">PAINT CORRECTION<br><span class="red">& CERAMIC</span></div>
+        <div class="svc-compact-desc">Up to 7-year ceramic coating with optional paint correction.</div>
+        <div class="svc-compact-link">View Pricing →</div>
       </div>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <div class="svc-card reveal" data-num="04">
-      <div class="svc-icon">🚘</div>
-      <div class="svc-name">Exterior Detail — Premium</div>
-      <p class="svc-desc">Restores your exterior by safely removing contaminants that dull paint and reduce protection. Improves gloss and curb appeal. 2 hr+</p>
-      <ul class="svc-list">
-        <li>Pre rinse</li>
-        <li>Foam bath &amp; contact wash</li>
-        <li>Wheel cleaning</li>
-        <li>Bug removal</li>
-        <li>Trim protection</li>
-        <li>Hydrophobic tire dressing</li>
-        <li>1 month ceramic spray sealant</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$90</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$105</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$120</span></div>
+    <div class="svc-compact-card reveal" onclick="openSvcModal('modal-restore')">
+      <img src="range-exterior.jpg" alt="Heavy Condition Rescue Restorative Detailing - Heritage Auto Spa"/>
+      <div class="svc-compact-overlay">
+        <div class="svc-compact-title">RESTORE<br><span class="red">RESCUE</span></div>
+        <div class="svc-compact-desc">Hasn't been detailed in years? We go deep and rescue it all.</div>
+        <div class="svc-compact-link">View Pricing →</div>
       </div>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <div style="background:transparent;"></div>
-
-    <!-- FULL DETAIL -->
-    <div class="svc-category"><span style="color:var(--text-dark);">Full Detail</span> <span style="color:var(--red);">Packages</span></div>
-
-    <div class="svc-card reveal" data-num="06">
-      <div class="svc-icon">🏆</div>
-      <div class="svc-name">Full Detail — Premium</div>
-      <p class="svc-desc">Recommended for first-time clients. A complete interior &amp; exterior restoration designed to reset your vehicle's condition. 4 hr+</p>
-      <ul class="svc-list">
-        <li style="font-weight:600;color:var(--red);">Interior Detail includes:</li>
-        <li>Remove mats / Blow out carpet &amp; mats</li>
-        <li>Dust &amp; vacuum throughout</li>
-        <li>Spray carpet cleaner / Drill brush</li>
-        <li>Sanitize &amp; wipe down all surfaces</li>
-        <li>Wipe down seats (stain removal not included)</li>
-        <li>Interior windows cleaned</li>
-        <li>Surface protectant applied</li>
-        <li style="font-weight:600;color:var(--red);">Exterior Detail includes:</li>
-        <li>Pre rinse</li>
-        <li>Foam bath &amp; contact wash</li>
-        <li>Wheel cleaning</li>
-        <li>Bug removal</li>
-        <li>Trim protection</li>
-        <li>Hydrophobic tire dressing</li>
-        <li>1 month ceramic spray sealant</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$195</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$229</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$259</span></div>
+    <div class="svc-compact-card reveal" onclick="openSvcModal('modal-maintenance')">
+      <img src="cadi-exterior.jpg" alt="Monthly Maintenance Plan - Heritage Auto Spa"/>
+      <div class="svc-compact-overlay">
+        <div class="svc-compact-title">MAINTENANCE<br><span class="red">PLAN</span></div>
+        <div class="svc-compact-desc">VIP monthly care — your vehicle always looks its best.</div>
+        <div class="svc-compact-link">View Pricing →</div>
       </div>
-      <div style="background:#fff8f8;border-left:3px solid var(--red);padding:10px 14px;margin-bottom:14px;">
-        <p style="font-size:12px;font-weight:700;color:var(--red);margin:0 0 4px 0;letter-spacing:0.3px;">📸 PHOTOS REQUIRED AT BOOKING</p>
-        <p style="font-size:11px;color:var(--text-mid);margin:0;line-height:1.5;">You will be asked to upload at least 3 photos of your interior — please include the <strong>front seats</strong>, <strong>rear seats</strong>, and <strong>carpets / floor mats</strong>.</p>
-      </div>
-      <span class="svc-badge">Most Popular</span>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
     </div>
 
-    <div style="background:transparent;"></div>
+  </div>
 
-    <!-- PAINT -->
-    <div class="svc-category"><span style="color:var(--red);">Paint</span> <span style="color:var(--text-dark);">Services</span></div>
+  <!-- ========== MODAL: MOBILE DETAILING ========== -->
+  <div class="svc-modal-bg" id="modal-mobile" onclick="closeSvcModal(event,'modal-mobile')">
+    <div class="svc-modal">
+      <div class="svc-modal-close" onclick="closeSvcModal(event,'modal-mobile')">✕</div>
+      <div class="svc-modal-eyebrow">Service · 01</div>
+      <div class="svc-modal-title">MOBILE DETAILING</div>
+      <div class="svc-modal-intro">All packages are fully mobile — we come to you. Pricing varies by vehicle size.</div>
 
-    <div class="svc-card reveal" data-num="07">
-      <div class="svc-icon">💡</div>
-      <div class="svc-name">Paint Correction</div>
-      <p class="svc-desc">Removes light swirl marks, minor scratches, and oxidation while restoring gloss. Single-step machine polish removes 40–60% of paint imperfections. 4 hr 30 min+</p>
-      <ul class="svc-list">
-        <li>Machine polish — single step</li>
-        <li>Swirl mark &amp; light scratch removal</li>
-        <li>Oxidation correction</li>
-        <li>Restores depth and clarity</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$279</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$299</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$329</span></div>
+      <div class="svc-modal-section">
+        <h4>Interior Detail — Premium</h4>
+        <div class="sub">Deep clean that removes embedded dirt, odors, and buildup. 2 hr 30 min+</div>
+        <ul>
+          <li>Remove mats / Blow out carpet &amp; mats</li>
+          <li>Dust &amp; vacuum throughout</li>
+          <li>Spray carpet cleaner / Drill brush</li>
+          <li>Sanitize &amp; wipe down all surfaces</li>
+          <li>Wipe down seats (stain removal not included)</li>
+          <li>Interior windows cleaned</li>
+          <li>Surface protectant applied</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$100</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$120</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$135</div></div>
+        </div>
+        <div class="svc-modal-photo-note">📸 <strong>Photos required at booking</strong> — at least 3 interior photos (front seats, rear seats, carpets / floor mats).</div>
       </div>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
-    </div>
 
-    <div class="svc-card reveal" data-num="09">
-      <div class="svc-icon">💫</div>
-      <div class="svc-name">7-Year Ceramic Coating</div>
-      <p class="svc-desc">Our longest-lasting ceramic protection. Premium grade coating that delivers superior gloss, hardness, and hydrophobic performance for up to 7 years. 5 hr+</p>
-      <ul class="svc-list">
-        <li>Full wash &amp; paint decontamination</li>
-        <li>Premium grade ceramic coat application</li>
-        <li>Superior hardness &amp; gloss</li>
-        <li>Up to 7 years of protection</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$599</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$679</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$749</span></div>
+      <div class="svc-modal-section">
+        <h4>Exterior Detail — Standard</h4>
+        <div class="sub">Clean, polished look with short-term protection. 1 hr 15 min+</div>
+        <ul>
+          <li>Foam bath &amp; contact wash</li>
+          <li>Wheel cleaning</li>
+          <li>Bug removal</li>
+          <li>Trim protection</li>
+          <li>Tire dressing</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$65</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$80</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$95</div></div>
+        </div>
       </div>
-      <span class="svc-badge">Best Protection</span>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
-    </div>
 
-    <div class="svc-card reveal" data-num="10">
-      <div class="svc-icon">💎</div>
-      <div class="svc-name">Paint Correction + Ceramic Bundle</div>
-      <p class="svc-desc">Complete paint enhancement and protection. Machine polish removes defects, then ceramic coating locks in the gloss with long-lasting protection. 6 hr+</p>
-      <ul class="svc-list">
-        <li>Single-step machine polish</li>
-        <li>Removes light defects &amp; restores shine</li>
-        <li>3-year ceramic coating applied</li>
-        <li>Water repellency &amp; easier maintenance</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$749</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$849</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$999</span></div>
+      <div class="svc-modal-section">
+        <h4>Exterior Detail — Premium</h4>
+        <div class="sub">Restores gloss &amp; curb appeal by removing contaminants that dull paint. 2 hr+</div>
+        <ul>
+          <li>Pre rinse</li>
+          <li>Foam bath &amp; contact wash</li>
+          <li>Wheel cleaning</li>
+          <li>Bug removal</li>
+          <li>Trim protection</li>
+          <li>Hydrophobic tire dressing</li>
+          <li>1 month ceramic spray sealant</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$90</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$105</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$120</div></div>
+        </div>
       </div>
-      <span class="svc-badge">Best Value</span>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
-    </div>
 
-    <div style="background:transparent;"></div>
-
-    <!-- MONTHLY -->
-    <div class="svc-category"><span style="color:var(--text-dark);">Monthly Maintenance</span> <span style="color:var(--red);">VIP</span></div>
-
-    <div class="svc-card reveal" data-num="11">
-      <div class="svc-icon">⭐</div>
-      <div class="svc-name">Monthly Maintenance — Premium</div>
-      <p class="svc-desc">VIP-level monthly maintenance. Full interior &amp; exterior care every month — your vehicle always looks its best. 3 hr+</p>
-      <ul class="svc-list">
-        <li>Full interior — vacuum, wipe down, sanitize, seats, carpet, protectant</li>
-        <li>Foam bath, deep wheel clean, bug removal</li>
-        <li>Iron fall out removal</li>
-        <li>Ceramic spray sealant &amp; tire dressing</li>
-        <li>1 month ceramic spray sealant</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$159</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$189</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$209</span></div>
+      <div class="svc-modal-section">
+        <h4>Full Detail — Premium ⭐ Most Popular</h4>
+        <div class="sub">Recommended for first-time clients. Complete interior &amp; exterior reset. 4 hr+</div>
+        <div class="svc-modal-cols">
+          <div>
+            <h5>Interior Includes</h5>
+            <ul>
+              <li>Remove mats / Blow out carpet &amp; mats</li>
+              <li>Dust &amp; vacuum throughout</li>
+              <li>Spray carpet cleaner / Drill brush</li>
+              <li>Sanitize &amp; wipe down all surfaces</li>
+              <li>Wipe down seats</li>
+              <li>Interior windows cleaned</li>
+              <li>Surface protectant applied</li>
+            </ul>
+          </div>
+          <div>
+            <h5>Exterior Includes</h5>
+            <ul>
+              <li>Pre rinse</li>
+              <li>Foam bath &amp; contact wash</li>
+              <li>Wheel cleaning</li>
+              <li>Bug removal</li>
+              <li>Trim protection</li>
+              <li>Hydrophobic tire dressing</li>
+              <li>1 month ceramic spray sealant</li>
+            </ul>
+          </div>
+        </div>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$195</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$229</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$259</div></div>
+        </div>
+        <div class="svc-modal-photo-note">📸 <strong>Photos required at booking</strong> — at least 3 interior photos (front seats, rear seats, carpets / floor mats).</div>
       </div>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
+
+      <a href="/book.html" target="_blank" class="svc-modal-cta">Book This Service →</a>
     </div>
+  </div>
 
-    <div style="background:transparent;"></div>
+  <!-- ========== MODAL: PAINT CORRECTION & CERAMIC ========== -->
+  <div class="svc-modal-bg" id="modal-ceramic" onclick="closeSvcModal(event,'modal-ceramic')">
+    <div class="svc-modal">
+      <div class="svc-modal-close" onclick="closeSvcModal(event,'modal-ceramic')">✕</div>
+      <div class="svc-modal-eyebrow">Service · 02</div>
+      <div class="svc-modal-title">PAINT CORRECTION &amp; CERAMIC COATING</div>
+      <div class="svc-modal-intro">9-Year graphene coating options. Three levels of protection &amp; gloss. Pricing varies by vehicle size.</div>
 
-    <!-- RESTORATIVE -->
-    <div class="svc-category"><span style="color:var(--red);">Restorative</span> <span style="color:var(--text-dark);">Services</span></div>
-
-    <div class="svc-card reveal" data-num="15">
-      <div class="svc-icon">🆘</div>
-      <div class="svc-name">Heavy Condition Rescue</div>
-      <p class="svc-desc">For vehicles that haven't been detailed in years. We go deep — stains, odors, buildup, and grime. We rescue it all.</p>
-      <ul class="svc-list">
-        <li>Heavy interior extraction &amp; shampoo</li>
-        <li>Stain &amp; odor treatment</li>
-        <li>Full exterior decontamination</li>
-        <li>Multiple passes until restored</li>
-      </ul>
-      <div class="svc-pricing">
-        <div class="svc-price-row"><span class="svc-price-type">Coupe / Sedan</span><span class="svc-price-val">$349</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">SUV / Crossover</span><span class="svc-price-val">$429</span></div>
-        <div class="svc-price-row"><span class="svc-price-type">Large SUV / Truck</span><span class="svc-price-val">$499</span></div>
+      <div class="svc-modal-section">
+        <h4>Paint Correction</h4>
+        <div class="sub">Removes light swirl marks, minor scratches &amp; oxidation. Single-step polish removes 40–60% of imperfections. 4 hr 30 min+</div>
+        <ul>
+          <li>Machine polish — single step</li>
+          <li>Swirl mark &amp; light scratch removal</li>
+          <li>Oxidation correction</li>
+          <li>Restores depth and clarity</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$279</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$299</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$329</div></div>
+        </div>
       </div>
-      <div style="background:#fff8f8;border-left:3px solid var(--red);padding:10px 14px;margin-bottom:14px;">
-        <p style="font-size:12px;font-weight:700;color:var(--red);margin:0 0 4px 0;letter-spacing:0.3px;">📸 PHOTOS REQUIRED AT BOOKING</p>
-        <p style="font-size:11px;color:var(--text-mid);margin:0;line-height:1.5;">You will be asked to upload at least 3 photos of your interior — please include the <strong>front seats</strong>, <strong>rear seats</strong>, and <strong>carpets / floor mats</strong>.</p>
+
+      <div class="svc-modal-section">
+        <h4>7-Year Ceramic Coating ⭐ Best Protection</h4>
+        <div class="sub">Our longest-lasting protection. Premium grade coating for superior gloss, hardness &amp; hydrophobic performance. 5 hr+</div>
+        <ul>
+          <li>Full wash &amp; paint decontamination</li>
+          <li>Premium grade ceramic coat application</li>
+          <li>Superior hardness &amp; gloss</li>
+          <li>Up to 7 years of protection</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$599</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$679</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$749</div></div>
+        </div>
       </div>
-      <span class="svc-badge">We Rescue Any Condition</span>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
+
+      <div class="svc-modal-section">
+        <h4>Paint Correction + Ceramic Bundle ⭐ Best Value</h4>
+        <div class="sub">Complete enhancement &amp; protection — polish removes defects, ceramic locks in the gloss. 6 hr+</div>
+        <ul>
+          <li>Single-step machine polish</li>
+          <li>Removes light defects &amp; restores shine</li>
+          <li>3-year ceramic coating applied</li>
+          <li>Water repellency &amp; easier maintenance</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$749</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$849</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$999</div></div>
+        </div>
+      </div>
+
+      <a href="/book.html" target="_blank" class="svc-modal-cta">Book This Service →</a>
     </div>
+  </div>
 
-    <!-- ADD ONS -->
-    <div class="svc-category"><span style="color:var(--red);">Add-On</span> <span style="color:var(--text-dark);">Services</span></div>
+  <!-- ========== MODAL: RESTORE / RESCUE ========== -->
+  <div class="svc-modal-bg" id="modal-restore" onclick="closeSvcModal(event,'modal-restore')">
+    <div class="svc-modal">
+      <div class="svc-modal-close" onclick="closeSvcModal(event,'modal-restore')">✕</div>
+      <div class="svc-modal-eyebrow">Service · 03</div>
+      <div class="svc-modal-title">RESTORE &amp; RESCUE</div>
+      <div class="svc-modal-intro">For vehicles that need extra love. Pricing varies by vehicle size.</div>
 
-    <div class="svc-card reveal" data-num="16">
-      <div class="svc-icon">➕</div>
-      <div class="svc-name">Add-On Services</div>
-      <p class="svc-desc">Customize any package. Pet hair severity is assessed on-site before service begins.</p>
-      <ul class="svc-list">
-        <li>Pet hair removal — $45 light / $75 moderate / $125 heavy</li>
-        <li>Carpet deep clean — $65</li>
-        <li>Seat deep clean — $65</li>
-        <li>Odor treatment — $75</li>
-        <li>Leather conditioner — $50</li>
-        <li>Engine detail — $55</li>
-        <li>Headlight restoration — $50 single / $75 both</li>
-        <li>Interior ceramic coating — $95</li>
-      </ul>
-      <span class="svc-badge">Mix &amp; Match</span>
-      <a href="/book.html" target="_blank" class="svc-book">Book This Service →</a>
+      <div class="svc-modal-section">
+        <h4>Heavy Condition Rescue 🆘 We Rescue Any Condition</h4>
+        <div class="sub">For vehicles that haven't been detailed in years. We go deep — stains, odors, buildup, and grime. We rescue it all.</div>
+        <ul>
+          <li>Heavy interior extraction &amp; shampoo</li>
+          <li>Stain &amp; odor treatment</li>
+          <li>Full exterior decontamination</li>
+          <li>Multiple passes until restored</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$349</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$429</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$499</div></div>
+        </div>
+        <div class="svc-modal-photo-note">📸 <strong>Photos required at booking</strong> — at least 3 interior photos (front seats, rear seats, carpets / floor mats).</div>
+      </div>
+
+      <div class="svc-modal-section">
+        <h4>Add-On Services <span style="font-size:13px;color:rgba(255,255,255,0.5);">Mix &amp; Match</span></h4>
+        <div class="sub">Customize any package. Pet hair severity assessed on-site before service begins.</div>
+        <ul>
+          <li>Pet hair removal — $45 light / $75 moderate / $125 heavy</li>
+          <li>Carpet deep clean — $65</li>
+          <li>Seat deep clean — $65</li>
+          <li>Odor treatment — $75</li>
+          <li>Leather conditioner — $50</li>
+          <li>Engine detail — $55</li>
+          <li>Headlight restoration — $50 single / $75 both</li>
+          <li>Interior ceramic coating — $95</li>
+        </ul>
+      </div>
+
+      <a href="/book.html" target="_blank" class="svc-modal-cta">Book This Service →</a>
     </div>
+  </div>
 
+  <!-- ========== MODAL: MAINTENANCE PLAN ========== -->
+  <div class="svc-modal-bg" id="modal-maintenance" onclick="closeSvcModal(event,'modal-maintenance')">
+    <div class="svc-modal">
+      <div class="svc-modal-close" onclick="closeSvcModal(event,'modal-maintenance')">✕</div>
+      <div class="svc-modal-eyebrow">Service · 04</div>
+      <div class="svc-modal-title">MAINTENANCE PLAN</div>
+      <div class="svc-modal-intro">Weekly washes &amp; monthly details — discounted member pricing. Pricing varies by vehicle size.</div>
+
+      <div class="svc-modal-section">
+        <h4>Monthly Maintenance — Premium ⭐ VIP</h4>
+        <div class="sub">VIP-level monthly maintenance. Full interior &amp; exterior care every month — your vehicle always looks its best. 3 hr+</div>
+        <ul>
+          <li>Full interior — vacuum, wipe down, sanitize, seats, carpet, protectant</li>
+          <li>Foam bath, deep wheel clean, bug removal</li>
+          <li>Iron fall out removal</li>
+          <li>Ceramic spray sealant &amp; tire dressing</li>
+          <li>1 month ceramic spray sealant</li>
+        </ul>
+        <div class="svc-modal-pricing">
+          <div><div class="ptype">Coupe / Sedan</div><div class="pval">$159</div></div>
+          <div><div class="ptype">SUV / Crossover</div><div class="pval">$189</div></div>
+          <div><div class="ptype">Large SUV / Truck</div><div class="pval">$209</div></div>
+        </div>
+      </div>
+
+      <a href="/book.html" target="_blank" class="svc-modal-cta">Book This Service →</a>
+    </div>
   </div>
 </section>
 
@@ -1046,6 +1113,23 @@
 </footer>
 
 <script>
+  function openSvcModal(id) {
+    document.getElementById(id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeSvcModal(e, id) {
+    if (e.target.id === id || e.target.classList.contains('svc-modal-close')) {
+      document.getElementById(id).classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.svc-modal-bg.active').forEach(m => m.classList.remove('active'));
+      document.body.style.overflow = '';
+    }
+  });
+
   const nav = document.getElementById('navbar');
 
   const obs = new IntersectionObserver((entries) => {
