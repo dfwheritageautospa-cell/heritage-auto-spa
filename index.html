@@ -190,7 +190,7 @@
     .section-body { font-size: 15px; line-height: 1.8; color: var(--text-mid); max-width: 500px; font-weight: 300; }
 
     /* ABOUT */
-    #about { background: var(--white-2); display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    #about { background: var(--white-2); display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
 
     .about-visual { position: relative; display: flex; flex-direction: column; gap: 20px; }
     .about-logo-large { width: clamp(240px, 35vw, 360px); aspect-ratio: 1; position: relative; z-index: 2; margin: 0 auto; }
@@ -528,14 +528,9 @@
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-visual reveal" style="display:flex;flex-direction:column;gap:20px;height:100%;">
+  <div class="about-visual reveal" style="display:flex;align-items:center;justify-content:center;">
     <div style="position:relative;">
-      <div class="about-corner-stat tl"><div class="big">5★</div><div class="sm">Rated</div></div>
       <div class="about-logo-large"><img src="logo.png" alt="Heritage Auto Spa Logo"/></div>
-      <div class="about-corner-stat br"><div class="big">DFW</div><div class="sm">Coverage</div></div>
-    </div>
-    <div style="overflow:hidden;border:2px solid var(--white-3);box-shadow:0 4px 20px rgba(0,0,0,0.08);width:100%;flex:1;">
-      <img src="heritage_auto_spa_truck.jpeg" alt="Heritage Auto Spa Honda Acty Mobile Detailing Truck Colleyville TX" style="width:100%;height:100%;min-height:clamp(280px, 50vw, 680px);object-fit:cover;display:block;object-position:center 70%;"/>
     </div>
   </div>
   <div class="reveal">
@@ -543,12 +538,6 @@
     <h2 class="section-title">Detail Done Right,<br><span class="red">At Your Door</span></h2>
     <p class="section-body">Heritage Auto Spa is a professional mobile detailing service based in Colleyville, TX, serving the entire DFW Metroplex. We bring everything to you — no drop-off, no waiting rooms, no hassle.</p>
     <p class="section-body" style="margin-top:14px;">From a quick refresh to a full inside-and-out transformation, every detail is done by hand with professional-grade products. Your car is an investment. We treat it like one.</p>
-    <div class="about-stats">
-      <div class="astat"><div class="astat-num">100%</div><div class="astat-label">Mobile</div></div>
-      <div class="astat"><div class="astat-num">DFW</div><div class="astat-label">Coverage</div></div>
-      <div class="astat"><div class="astat-num">5★</div><div class="astat-label">Reviews</div></div>
-      <div class="astat"><div class="astat-num">2025</div><div class="astat-label">Est.</div></div>
-    </div>
   </div>
 </section>
 
