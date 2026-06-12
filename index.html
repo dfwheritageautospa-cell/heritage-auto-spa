@@ -167,6 +167,14 @@
     .stats-strip .sitem:last-child { border-right: none; }
     .stats-strip .snum { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px,4vw,44px); color: var(--red-bright); letter-spacing: 1px; line-height: 1; }
     .stats-strip .slabel { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 8px; }
+    .hero-fs-logo-mobile { display: none; }
+    @media (max-width: 700px) {
+      .hero-fs { min-height: auto; }
+      .hero-fs-bg { background-size: cover; background-position: center 30%; }
+      .hero-fs-content { padding: 40px 20px 40px; }
+      .hero-fs-logo-mobile { display: block; width: 90px; height: 90px; margin: 0 auto 16px; border-radius: 50%; background: white; padding: 6px; box-shadow: 0 4px 16px rgba(0,0,0,0.3); }
+      .hero-fs-title { font-size: clamp(48px, 14vw, 70px); }
+    }
     @media (max-width: 700px) { .stats-strip { grid-template-columns: repeat(2,1fr); } .stats-strip .sitem:nth-child(2) { border-right: none; } .stats-strip .sitem:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); } }
 
     .strip { background: var(--red); overflow: hidden; display: flex; height: 44px; align-items: center; }
@@ -488,6 +496,7 @@
   <div class="hero-fs-bg"></div>
   <div class="hero-fs-overlay"></div>
   <div class="hero-fs-content">
+    <img src="logo.png" alt="Heritage Auto Spa" class="hero-fs-logo-mobile"/>
     <div class="hero-fs-eyebrow">DFW's #1 Mobile Detailing Service — We Come To You</div>
     <h1 class="hero-fs-title">YOUR CAR.<br>OUR CRAFT.</h1>
     <div class="hero-fs-actions">
