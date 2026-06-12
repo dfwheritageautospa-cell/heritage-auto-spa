@@ -168,9 +168,10 @@
     .stats-strip .snum { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px,4vw,44px); color: var(--red-bright); letter-spacing: 1px; line-height: 1; }
     .stats-strip .slabel { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 8px; }
     @media (max-width: 700px) {
-      .hero-fs { min-height: auto; aspect-ratio: 1541/957; margin-top: 71px; background: #161616; }
-      .hero-fs-bg { background-size: contain; background-repeat: no-repeat; background-position: center; }
-      .hero-fs-content { padding: 24px 16px 30px; }
+      .hero-fs { min-height: auto; margin-top: 71px; display: block; }
+      .hero-fs-bg { position: relative; inset: auto; width: 100%; aspect-ratio: 1541/957; background-size: cover; background-position: center 30%; }
+      .hero-fs-overlay { display: none; }
+      .hero-fs-content { position: static; padding: 28px 16px 36px; background: #161616; }
       .hero-fs-title { font-size: clamp(40px, 12vw, 60px); }
     }
     @media (max-width: 700px) { .stats-strip { grid-template-columns: repeat(2,1fr); } .stats-strip .sitem:nth-child(2) { border-right: none; } .stats-strip .sitem:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); } }
