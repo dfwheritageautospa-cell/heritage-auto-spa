@@ -148,7 +148,27 @@
     .hero-scroll-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-light); }
     .hero-scroll-hint::after { content: ''; width: 1px; height: 36px; background: linear-gradient(to bottom, var(--red), transparent); }
 
-    /* STRIP */
+    /* FULLSCREEN HERO */
+    .hero-fs { position: relative; min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; }
+    .hero-fs-bg { position: absolute; inset: 0; background-image: url('hero-mskei.jpg'); background-size: cover; background-position: center 35%; }
+    .hero-fs-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.75) 100%); }
+    .hero-fs-content { position: relative; z-index: 2; padding: 100px 24px 60px; max-width: 1100px; }
+    .hero-fs-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(12px,1.4vw,15px); letter-spacing: 4px; text-transform: uppercase; color: var(--red-bright); font-weight: 700; margin-bottom: 22px; }
+    .hero-fs-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 11vw, 130px); line-height: 0.98; letter-spacing: 3px; color: var(--white); text-shadow: 0 4px 24px rgba(0,0,0,0.5); }
+    .hero-fs-actions { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; margin-top: 36px; }
+    .btn-hero { border: 2px solid var(--white); color: var(--white); background: rgba(0,0,0,0.25); padding: 16px 38px; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; transition: all 0.2s; display: inline-block; backdrop-filter: blur(4px); }
+    .btn-hero:hover { background: var(--white); color: var(--text-dark); }
+    .btn-hero.filled { background: var(--red); border-color: var(--red); }
+    .btn-hero.filled:hover { background: var(--red-bright); border-color: var(--red-bright); color: var(--white); }
+
+    /* STATS STRIP */
+    .stats-strip { background: #161616; display: grid; grid-template-columns: repeat(4,1fr); }
+    .stats-strip .sitem { text-align: center; padding: 32px 16px; border-right: 1px solid rgba(255,255,255,0.08); }
+    .stats-strip .sitem:last-child { border-right: none; }
+    .stats-strip .snum { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px,4vw,44px); color: var(--red-bright); letter-spacing: 1px; line-height: 1; }
+    .stats-strip .slabel { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-top: 8px; }
+    @media (max-width: 700px) { .stats-strip { grid-template-columns: repeat(2,1fr); } .stats-strip .sitem:nth-child(2) { border-right: none; } .stats-strip .sitem:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); } }
+
     .strip { background: var(--red); overflow: hidden; display: flex; height: 44px; align-items: center; }
     .strip-track { display: flex; animation: marquee 22s linear infinite; white-space: nowrap; }
     .strip-item { display: flex; align-items: center; gap: 10px; padding: 0 32px; font-family: 'Barlow Condensed', sans-serif; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--white); font-weight: 600; }
@@ -436,7 +456,7 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#hero" class="nav-logo-wrap">
+  <a href="#top" class="nav-logo-wrap">
     <img src="logo.png" alt="Heritage Auto Spa" class="nav-logo-img"/>
     <div class="nav-logo-text"><span>Heritage</span><small>Auto Spa</small></div>
   </a>
@@ -464,33 +484,26 @@
 </nav>
 
 <!-- HERO -->
-<section id="hero">
-  <div class="hero-bg-grad"></div>
-  <div class="hero-lines"></div>
-  <div class="hero-content">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Colleyville, TX · DFW Metroplex</div>
-      <h1 class="hero-title">
-        <span class="line-red">Heritage</span>
-        <span class="line-white">Auto</span>
-        <span class="line-silver">Spa</span>
-      </h1>
-      <p class="hero-tagline">Mobile Detailing · We Come to You</p>
-      <div class="hero-actions">
-        <a href="/book.html" target="_blank" class="btn-red">Book Your Detail</a>
-        <a href="#services" class="btn-outline">View Services</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="logo-display">
-        <div class="hero-ring"></div>
-        <div class="hero-ring-2"></div>
-        <img src="logo.png" alt="Heritage Auto Spa"/>
-      </div>
+<section class="hero-fs" id="top">
+  <div class="hero-fs-bg"></div>
+  <div class="hero-fs-overlay"></div>
+  <div class="hero-fs-content">
+    <div class="hero-fs-eyebrow">DFW's #1 Mobile Detailing Service — We Come To You</div>
+    <h1 class="hero-fs-title">YOUR CAR.<br>OUR CRAFT.</h1>
+    <div class="hero-fs-actions">
+      <a href="#services" class="btn-hero">Browse Services</a>
+      <a href="/book.html" target="_blank" class="btn-hero filled">Book Your Detail</a>
     </div>
   </div>
-  <div class="hero-scroll-hint">Scroll</div>
 </section>
+
+<!-- STATS STRIP -->
+<div class="stats-strip">
+  <div class="sitem"><div class="snum">100%</div><div class="slabel">Mobile Service</div></div>
+  <div class="sitem"><div class="snum">5★</div><div class="slabel">Google Rating</div></div>
+  <div class="sitem"><div class="snum">DFW</div><div class="slabel">Full Coverage</div></div>
+  <div class="sitem"><div class="snum">2025</div><div class="slabel">Established</div></div>
+</div>
 
 <!-- STRIP -->
 <div class="strip">
@@ -515,14 +528,14 @@
 
 <!-- ABOUT -->
 <section id="about">
-  <div class="about-visual reveal" style="display:flex;flex-direction:column;gap:20px;">
+  <div class="about-visual reveal" style="display:flex;flex-direction:column;gap:20px;height:100%;">
     <div style="position:relative;">
       <div class="about-corner-stat tl"><div class="big">5★</div><div class="sm">Rated</div></div>
       <div class="about-logo-large"><img src="logo.png" alt="Heritage Auto Spa Logo"/></div>
       <div class="about-corner-stat br"><div class="big">DFW</div><div class="sm">Coverage</div></div>
     </div>
-    <div style="overflow:hidden;border:2px solid var(--white-3);box-shadow:0 4px 20px rgba(0,0,0,0.08);width:100%;">
-      <img src="heritage_auto_spa_truck.jpeg" alt="Heritage Auto Spa Honda Acty Mobile Detailing Truck Colleyville TX" style="width:100%;height:clamp(220px, 40vw, 560px);object-fit:cover;display:block;object-position:center 70%;"/>
+    <div style="overflow:hidden;border:2px solid var(--white-3);box-shadow:0 4px 20px rgba(0,0,0,0.08);width:100%;flex:1;">
+      <img src="heritage_auto_spa_truck.jpeg" alt="Heritage Auto Spa Honda Acty Mobile Detailing Truck Colleyville TX" style="width:100%;height:100%;min-height:clamp(280px, 50vw, 680px);object-fit:cover;display:block;object-position:center 70%;"/>
     </div>
   </div>
   <div class="reveal">
@@ -535,21 +548,6 @@
       <div class="astat"><div class="astat-num">DFW</div><div class="astat-label">Coverage</div></div>
       <div class="astat"><div class="astat-num">5★</div><div class="astat-label">Reviews</div></div>
       <div class="astat"><div class="astat-num">2025</div><div class="astat-label">Est.</div></div>
-    </div>
-    <div style="margin-top:36px;">
-      <p style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:12px;font-weight:600;">⚙️ Behind the Scenes</p>
-      <div style="display:flex;gap:12px;flex-wrap:nowrap;overflow-x:auto;">
-        <div style="min-width:160px;flex:1;max-width:220px;border:2px solid var(--red);overflow:hidden;box-shadow:0 4px 20px rgba(204,34,34,0.15);">
-          <div style="aspect-ratio:9/16;">
-            <iframe src="https://www.youtube.com/embed/WnTUBZ_GK9Q" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:100%;border:none;display:block;"></iframe>
-          </div>
-        </div>
-        <div style="min-width:160px;flex:1;max-width:220px;border:2px solid var(--red);overflow:hidden;box-shadow:0 4px 20px rgba(204,34,34,0.15);">
-          <div style="aspect-ratio:9/16;">
-            <iframe src="https://www.youtube.com/embed/S7EHntBEwjg" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" style="width:100%;height:100%;border:none;display:block;"></iframe>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -1023,7 +1021,7 @@
 <footer>
   <div class="footer-top">
     <div class="fbrand">
-      <a href="#hero" class="fbrand-logo">
+      <a href="#top" class="fbrand-logo">
         <img src="logo.png" alt="Heritage Auto Spa"/>
         <div class="fbrand-logo-txt"><span>Heritage</span><small>Auto Spa</small></div>
       </a>
