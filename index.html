@@ -171,8 +171,11 @@
       .hero-fs { min-height: auto; margin-top: 71px; display: block; }
       .hero-fs-bg { position: relative; inset: auto; width: 100%; aspect-ratio: 1541/957; background-size: cover; background-position: center 30%; }
       .hero-fs-overlay { display: none; }
-      .hero-fs-content { position: static; padding: 28px 16px 36px; background: #161616; }
-      .hero-fs-title { font-size: clamp(40px, 12vw, 60px); }
+      .hero-fs-content { position: static; padding: 28px 16px 36px; background: #161616; max-width: 100%; overflow-x: hidden; }
+      .hero-fs-eyebrow { letter-spacing: 1px; font-size: 12px; }
+      .hero-fs-title { font-size: clamp(36px, 11vw, 56px); }
+      .hero-fs-actions { gap: 10px; }
+      .btn-hero { padding: 13px 22px; font-size: 11px; letter-spacing: 1.5px; }
     }
     @media (max-width: 700px) { .stats-strip { grid-template-columns: repeat(2,1fr); } .stats-strip .sitem:nth-child(2) { border-right: none; } .stats-strip .sitem:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.08); } }
 
