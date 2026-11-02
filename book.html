@@ -1217,5 +1217,23 @@ dfwheritageautospa.com
 
 </script>
 <script>document.querySelectorAll(".nav-links a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});</script>
+<script>
+/* Pre-fill from the estimate builder: /book.html?v=<size>&s=<service|service> */
+(function(){
+  try {
+    var p=new URLSearchParams(location.search), v=parseInt(p.get("v"),10), s=p.get("s");
+    if (isNaN(v) || v<0 || v>2) return;
+    var names=['Coupe / Sedan','SUV / Crossover','Large SUV / Truck'];
+    selectVehicle(names[v], v);
+    if (!s) return;
+    var wanted=s.split("|");
+    document.querySelectorAll(".service-option").forEach(function(el){
+      var m=(el.getAttribute("onclick")||"").match(/toggleService\(this, '([^']+)'/);
+      if (m && wanted.indexOf(m[1])>-1 && !el.classList.contains("selected")) el.click();
+    });
+    goToStep(2);
+  } catch(e) {}
+})();
+</script>
 </body>
 </html>

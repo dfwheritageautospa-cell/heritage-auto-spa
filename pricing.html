@@ -341,6 +341,10 @@ body, .sec.alt, .hero, .stats, .footer { background-image: url("data:image/svg+x
     Object.keys(st.adds).forEach(function(i){h+='<div class="line"><span>'+ADDS[i][0]+'</span><b>+'+money(ADDS[i][1])+'</b></div>';total+=ADDS[i][1];});
     $("s-adds").innerHTML=h;
     $("s-total").textContent=money(total);
+    var MAP={"Full Detail":"Full Detail — Premium","Interior Detail":"Interior Detail — Premium","Exterior Detail":"Exterior Detail — Premium","Paint Correction + Ceramic":"Paint Correction + Ceramic Bundle","7-Year Ceramic Coating":"7-Year Ceramic Coating","Paint Correction":"Paint Correction","Heavy Condition Rescue":"Heavy Condition Rescue","Monthly Maintenance":"Monthly Maintenance — Premium","Pet hair (light)":"Pet Hair Removal (Light)","Pet hair (moderate)":"Pet Hair Removal (Moderate)","Pet hair (heavy)":"Pet Hair Removal (Heavy)","Carpet deep clean":"Carpet Deep Clean","Seat deep clean":"Seat Deep Clean","Odor treatment":"Odor Treatment","Leather conditioner":"Leather Conditioner","Engine detail":"Engine Detail","Headlight restoration":"Headlight Restoration (Both)","Interior ceramic":"Interior Ceramic Coating"};
+    var picks=[MAP[o.n]]; Object.keys(st.adds).forEach(function(i){picks.push(MAP[ADDS[i][0]]);});
+    var url="/book.html?v="+st.size+"&s="+encodeURIComponent(picks.join("|"));
+    document.querySelectorAll(".summary a.btn-red").forEach(function(a){a.href=url;});
   }
   render();
 })();
