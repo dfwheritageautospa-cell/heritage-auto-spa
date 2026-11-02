@@ -23,7 +23,6 @@
       --text-dark: #FFFFFF;
       --text-mid: #C9C9C9;
       --text-light: #9A9A9A;
-      --checker: repeating-conic-gradient(#D11F26 0% 25%, #0F0F0F 0% 50%) 0 0 / 16px 16px;
       color-scheme: dark;
     }
 
@@ -37,67 +36,14 @@
       min-height: 100vh;
     }
 
-    /* HEADER */
-    header {
-      background: #0F0F0F;
-      border-bottom: 2px solid var(--red);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-      padding: 0 48px;
-      height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .logo-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .logo-wrap img { height: 60px; width: auto; }
-    .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; line-height: 1; }
-    .logo-text span { color: var(--red); display: block; }
-    .logo-text small { color: var(--text-mid); font-size: 10px; letter-spacing: 4px; display: block; }
-    .back-link { color: #D6D6D6 !important; font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; font-weight: 500; }
-    .back-link:hover { color: var(--red); }
-    .header-right { display: flex; align-items: center; gap: 16px; }
-    .book-now-badge {
-      background: var(--red); color: white;
-      padding: 8px 20px; font-family: 'Barlow Condensed', sans-serif;
-      font-size: 11px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-    }
-
-    /* CHECKER STRIP */
-    .checker-strip { height: 16px; background: var(--checker); }
 
     /* HERO */
-    .booking-hero {
-      background: linear-gradient(180deg, rgba(10,10,10,0.82), rgba(10,10,10,0.94)), url('/hero-mskei.jpg') center 40% / cover;
-      padding: 60px 48px 48px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      border-bottom: 1px solid var(--white-3);
-    }
-    .booking-hero::before {
-      content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(204,34,34,0.05) 0%, transparent 70%);
-    }
-    .booking-hero h1 {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(48px, 8vw, 90px);
-      letter-spacing: 4px;
-      line-height: 0.95;
-      position: relative; z-index: 1;
-    }
-    .booking-hero h1 .line-dark { color: var(--text-dark); display: block; }
-    .booking-hero h1 .line-red { color: var(--red); display: block; }
-    .booking-hero p {
-      font-family: 'Barlow Condensed', sans-serif;
-      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--text-light); margin-top: 12px;
-      position: relative; z-index: 1;
-      display: flex; align-items: center; justify-content: center; gap: 12px;
-    }
-    .booking-hero p::before, .booking-hero p::after {
-      content: ''; display: block; width: 30px; height: 1px; background: var(--red);
-    }
+    .booking-hero { background: linear-gradient(180deg, rgba(10,10,10,0.80), rgba(10,10,10,0.94)), url('/hero-mskei.jpg') center 40% / cover; padding: 56px 20px 48px; border-bottom: 1px solid var(--white-3); }
+    .bh-inner { max-width: 1180px; margin: 0 auto; }
+    .bh-eyebrow { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--red-bright); font-weight: 700; margin-bottom: 10px; }
+    .booking-hero h1 { font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: clamp(44px, 7vw, 78px); line-height: .96; letter-spacing: 1.5px; color: #fff; }
+    .booking-hero h1 .line-red { color: var(--red-bright); }
+    .bh-sub { color: #CFCFCF; font-size: 17px; margin-top: 14px; max-width: 620px; line-height: 1.6; }
 
     /* PROGRESS BAR */
     .progress-wrap {
@@ -325,8 +271,7 @@
 
     /* MOBILE */
     @media (max-width: 700px) {
-      header { padding: 0 20px; }
-      .booking-hero { padding: 36px 20px 28px; }
+      .booking-hero { padding: 32px 20px 28px; }
       .progress-wrap { padding: 18px 20px; gap: 0; }
       .prog-line { width: 30px; }
       .prog-step span:last-child { display: none; }
@@ -337,40 +282,53 @@
       .summary-services { display: none; }
       .contact-form { padding: 20px; }
     }
+
+    /* NAV */
+    .nav { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 20px; height: 72px; background: rgba(12,12,12,0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+    .nav::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: .7; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
+    .nav-logo img { height: 60px; width: auto; }
+    .nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
+    .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #D6D6D6; text-decoration: none; font-weight: 600; }
+    .nav-links a:hover { color: #fff; }
+    .nav-links .nav-phone a { color: #fff; }
+    .nav-links .nav-cta { background: var(--red); color: #fff; padding: 11px 20px; border-radius: 4px; }
+    .nav-links .nav-cta:hover { background: var(--red-bright); }
+    .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; }
+    @media (max-width: 1060px) {
+      .nav-toggle { display: flex; }
+      .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0B0B0B; border-bottom: 2px solid var(--red); padding: 6px 0 14px; }
+      .nav-links li a { display: block; padding: 14px 20px; font-size: 16px; }
+      .nav-links .nav-cta { margin: 8px 20px 0; text-align: center; }
+      body.menu-open .nav-links { display: flex; }
+    }
+    
+    
   </style>
 </head>
 <body>
 
-<header>
-  <a href="/" class="logo-wrap">
-    <img src="/logo.png" alt="Heritage Auto Spa logo"/>
-  </a>
-  <a href="/" class="back-link">← Back to Site</a>
-</header>
-
-<div class="checker-strip"></div>
-
-<div style="background:var(--red);overflow:hidden;display:flex;height:40px;align-items:center;">
-  <div style="display:flex;animation:marquee 22s linear infinite;white-space:nowrap;">
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Mobile Service</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">DFW Metroplex</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Interior &amp; Exterior</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Colleyville TX</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Same-Week Booking</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Since 2025</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Mobile Service</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">DFW Metroplex</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Interior &amp; Exterior</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Colleyville TX</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Same-Week Booking</div>
-    <div style="display:flex;align-items:center;gap:10px;padding:0 28px;font-family:'Barlow Condensed',sans-serif;font-size:12px;letter-spacing:3px;text-transform:uppercase;color:white;font-weight:600;">Since 2025</div>
-  </div>
-</div>
-<div class="checker-strip"></div>
+<nav class="nav" id="navbar">
+  <a href="/" class="nav-logo" aria-label="Heritage Auto Spa home"><img src="/logo.png" alt="Heritage Auto Spa logo" width="64" height="60"/></a>
+  <button class="nav-toggle" aria-label="Open menu" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span><span></span></button>
+  <ul class="nav-links">
+    <li><a href="/mobile-detailing">Mobile Detailing</a></li>
+    <li><a href="/ceramic-coating">Ceramic Coating</a></li>
+    <li><a href="/paint-correction">Paint Correction</a></li>
+    <li><a href="/service-areas">Service Areas</a></li>
+    <li><a href="/faq">FAQ</a></li>
+    <li class="nav-phone"><a href="tel:+16824179435">(682) 417-9435</a></li>
+    <li><a href="/book.html" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
 
 <div class="booking-hero">
-  <h1><span class="line-dark">Book Your</span><span class="line-red">Detail</span></h1>
-  <p>Mobile Detailing · Colleyville, TX · DFW Metroplex</p>
+  <div class="bh-inner">
+    <div class="bh-eyebrow">Mobile Detailing · Colleyville · Southlake · Grapevine</div>
+    <h1>Book Your <span class="line-red">Detail</span></h1>
+    <p class="bh-sub">Pick your vehicle and services, send a few photos, and choose a time. You'll get a confirmed quote before we arrive.</p>
+  </div>
 </div>
 
 <!-- PROGRESS -->
