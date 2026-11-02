@@ -174,6 +174,12 @@ ul.checks.two-col { columns: 2; column-gap: 32px; }
   .sticky-book { display: block; position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 90; background: var(--red); color: #fff; text-align: center; padding: 15px; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
 }
 
+  .quotes { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 18px; }
+  .quote { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 26px; margin: 0; }
+  .quote .stars { color: #FBBF24; letter-spacing: 2px; font-size: 16px; }
+  .quote blockquote { margin: 12px 0 16px; color: #E6E6E6; font-size: 16px; line-height: 1.7; }
+  .quote figcaption { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; font-size: 14px; }
+  .quote figcaption span { display: block; color: var(--muted); font-family: 'Barlow', sans-serif; text-transform: none; letter-spacing: 0; font-weight: 400; font-size: 13px; margin-top: 2px; }
 </style>
 <style>
   /* ---------- homepage-only layout ---------- */
@@ -488,6 +494,23 @@ ul.checks.two-col { columns: 2; column-gap: 32px; }
         <p class="lead" style="margin:0 0 6px">Every review on our Google profile is from a real client in Colleyville, Southlake, Grapevine and across DFW. Read them, or leave one after your detail. It helps a small business more than you know.</p>
         <div class="hero-actions"><a class="btn-red" href="https://www.google.com/search?q=Heritage+Auto+Spa+Colleyville+TX" target="_blank" rel="noopener">Read Our Reviews</a><a class="btn-ghost" href="https://g.page/r/CamWJUhHbjzxEBM/review" target="_blank" rel="noopener">Leave a Review</a></div>
       </div>
+    </div>
+    <div class="quotes">
+      <figure class="quote">
+        <div class="stars">★★★★★</div>
+        <blockquote>"I cannot say enough amazing things about Nate and the incredible job he did detailing our car! From the inside out, his attention to detail was absolutely outstanding. Our car looks and feels brand new again! ... Not to mention the convenience of Nate coming directly to you! No dropping off your car, rearranging your schedule, or sitting around waiting. ... 10/10 HIGHLY RECOMMEND!"</blockquote>
+        <figcaption>Grace L.<span>Google review</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <div class="stars">★★★★★</div>
+        <blockquote>"Gifted my dad a full detail for Father's Day and Nate did not disappoint! He was on time, courteous, competitively priced and incredibly thorough. The car shines like the day it rolled off the assembly line. Will definitely be using Heritage Auto Spa for future auto detailing and recommending them to all my friends in DFW!"</blockquote>
+        <figcaption>Lucy N.<span>Google review</span></figcaption>
+      </figure>
+      <figure class="quote">
+        <div class="stars">★★★★★</div>
+        <blockquote>"What a phenomenal job. I couldn't have asked for a better outcome. They showed up right on time and took every bit of the time they suggested it would take to complete the job. I honestly would have never expected the final outcome to look how it does. I would say it looks as good as it did when I purchased it new. They were also incredibly respectful and extremely detail oriented. I will be a continued customer and I'd recommend them to anyone looking or thinking about having a detail cleaning."</blockquote>
+        <figcaption>Ryan &amp; Addison S.<span>Google review</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>
