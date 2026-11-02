@@ -38,15 +38,15 @@ button { font: inherit; }
 .nav::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: .7; }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
 .nav-logo img { height: 60px; width: auto; }
-.nav-links { display: flex; align-items: center; gap: 24px; list-style: none; }
-.nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #D6D6D6; text-decoration: none; font-weight: 600; }
+.nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
+.nav-links a { white-space: nowrap; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #D6D6D6; text-decoration: none; font-weight: 600; }
 .nav-links a:hover { color: #fff; }
 .nav-links .nav-phone a { color: #fff; }
 .nav-links .nav-cta { background: var(--red); color: #fff; padding: 11px 20px; border-radius: 4px; }
 .nav-links .nav-cta:hover { background: var(--red-bright); }
 .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; }
-@media (max-width: 1060px) {
+@media (max-width: 1380px) {
   .nav-toggle { display: flex; }
   .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0B0B0B; border-bottom: 2px solid var(--red); padding: 6px 0 14px; }
   .nav-links li a { display: block; padding: 14px 20px; font-size: 16px; }
@@ -185,6 +185,8 @@ ul.checks.two-col { columns: 2; column-gap: 32px; }
     <li><a href="/mobile-detailing">Mobile Detailing</a></li>
     <li><a href="/ceramic-coating">Ceramic Coating</a></li>
     <li><a href="/paint-correction">Paint Correction</a></li>
+    <li><a href="/pricing">Pricing</a></li>
+    <li><a href="/our-work">Our Work</a></li>
     <li><a href="/service-areas">Service Areas</a></li>
     <li><a href="/faq">FAQ</a></li>
     <li class="nav-phone"><a href="tel:+16824179435">(682) 417-9435</a></li>
@@ -234,5 +236,6 @@ ul.checks.two-col { columns: 2; column-gap: 32px; }
 </footer>
 <a class="sticky-book" href="/book.html">Book Your Detail</a>
 
+<script>document.querySelectorAll(".nav-links a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});</script>
 </body>
 </html>
