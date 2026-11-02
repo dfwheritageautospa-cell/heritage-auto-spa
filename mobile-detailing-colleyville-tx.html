@@ -38,6 +38,8 @@ button { font: inherit; }
 .nav::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: linear-gradient(90deg, transparent, var(--red), transparent); opacity: .7; }
 .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
 .nav-logo img { height: 60px; width: auto; }
+.nav-logo img.wordmark { height: 44px; }
+.nav-logo { flex-shrink: 0; }
 .nav-links { display: flex; align-items: center; gap: 20px; list-style: none; }
 .nav-links a { white-space: nowrap; font-family: 'Barlow Condensed', sans-serif; font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #D6D6D6; text-decoration: none; font-weight: 600; }
 .nav-links a:hover { color: #fff; }
@@ -46,7 +48,7 @@ button { font: inherit; }
 .nav-links .nav-cta:hover { background: var(--red-bright); }
 .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; flex-direction: column; gap: 5px; }
 .nav-toggle span { display: block; width: 24px; height: 2px; background: #fff; }
-@media (max-width: 1380px) {
+@media (max-width: 1440px) {
   .nav-toggle { display: flex; }
   .nav-links { display: none; position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 0; background: #0B0B0B; border-bottom: 2px solid var(--red); padding: 6px 0 14px; }
   .nav-links li a { display: block; padding: 14px 20px; font-size: 16px; }
@@ -178,7 +180,7 @@ ul.checks.two-col { columns: 2; column-gap: 32px; }
 <body>
 
 <nav class="nav" id="navbar">
-  <a href="/" class="nav-logo" aria-label="Heritage Auto Spa home"><img src="/logo.png" alt="Heritage Auto Spa logo" width="64" height="60"/></a>
+  <a href="/" class="nav-logo" aria-label="Heritage Auto Spa home"><img class="wordmark" src="/logo-wordmark.png" alt="Heritage Auto Spa" width="156" height="44"/></a>
   <button class="nav-toggle" aria-label="Open menu" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span><span></span></button>
   <ul class="nav-links">
     <li><a href="/mobile-detailing.html">Mobile Detailing</a></li>
