@@ -334,6 +334,39 @@ table.prices th { background: #111113; }
   .hnav-right { margin-left: 18px; }
 }
 </style>
+<style>
+/* ===== mobile slide-in menu ===== */
+body.hnav-open .hnav-links { display: none !important; }
+.md-scrim { position: fixed; inset: 0; z-index: 200; background: rgba(8,8,10,0.45); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; transition: opacity .25s; }
+.md-scrim.on { opacity: 1; }
+.mdrawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 210; width: min(86vw, 400px); height: 100%; height: 100dvh; background: #fff; display: flex; flex-direction: column; transform: translateX(100%); transition: transform .3s ease; box-shadow: -20px 0 50px rgba(0,0,0,0.25); font-family: 'Inter', system-ui, sans-serif; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); visibility: hidden; }
+.mdrawer.on { transform: none; visibility: visible; }
+.md-head { flex: none; display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid #ECECEF; }
+.md-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #111113; font-weight: 700; font-size: 16px; }
+.md-logo img { height: 46px; width: auto; }
+.md-close { width: 44px; height: 44px; border: 0; background: none; border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: #111113; }
+.md-close:hover { background: #F3F3F5; }
+.mdrawer svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.md-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding: 14px 14px 20px; display: flex; flex-direction: column; gap: 2px; }
+.md-link { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 15px 18px; border: 0; background: none; border-radius: 999px; font: 500 18px 'Inter', system-ui, sans-serif; color: #111113; text-decoration: none; text-align: left; cursor: pointer; }
+.md-link:hover { background: #F5F5F7; }
+.md-link.cur { background: #F3F3F5; color: var(--red); }
+.md-acc-btn svg { width: 18px; height: 18px; transition: transform .2s; }
+.md-acc-btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.md-sub { display: flex; flex-direction: column; padding: 2px 0 8px 18px; }
+.md-sub[hidden] { display: none; }
+.md-sub a { padding: 11px 18px; border-left: 2px solid #ECECEF; font-size: 16px; color: #3A3B42; text-decoration: none; }
+.md-sub a:hover, .md-sub a.cur { color: var(--red); border-left-color: var(--red); }
+.md-foot { flex: none; padding: 16px 20px 20px; border-top: 1px solid #ECECEF; display: grid; gap: 12px; }
+.md-phone, .md-book { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px; border-radius: 999px; font: 600 17px 'Inter', system-ui, sans-serif; text-decoration: none; }
+.md-phone { border: 1.5px solid #D9D9DE; color: #111113; }
+.md-phone svg { width: 20px; height: 20px; }
+.md-book { background: var(--red); color: #fff; }
+.md-book:hover { background: var(--red-bright); }
+body.md-lock { overflow: hidden; }
+@media (min-width: 1181px) { .mdrawer, .md-scrim { display: none !important; } }
+@media (prefers-reduced-motion: reduce) { .mdrawer, .md-scrim { transition: none; } }
+</style>
 </head>
 <body>
 
@@ -356,6 +389,25 @@ table.prices th { background: #111113; }
     </div>
   </div>
 </nav>
+<div class="md-scrim" hidden></div>
+<aside class="mdrawer" id="mdrawer" aria-label="Menu" aria-hidden="true">
+  <div class="md-head">
+    <a href="/" class="md-logo"><img src="/logo.png" alt="Heritage Auto Spa" width="52" height="49"/><span>Heritage Auto Spa</span></a>
+    <button class="md-close" type="button" aria-label="Close menu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <nav class="md-body">
+    <a class="md-link" href="/">Home</a>
+    <div class="md-acc"><button class="md-link md-acc-btn" type="button" aria-expanded="false">Services <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></button><div class="md-sub" hidden><a href="/mobile-detailing.html">Mobile Detailing</a><a href="/ceramic-coating.html">Ceramic Coating</a><a href="/paint-correction.html">Paint Correction</a><a href="/restoration-detailing.html">Heavy Condition Rescue</a><a href="/maintenance-plan.html">Monthly Plan</a></div></div>
+    <div class="md-acc"><button class="md-link md-acc-btn" type="button" aria-expanded="false">Locations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></button><div class="md-sub" hidden><a href="/mobile-detailing-colleyville-tx.html">Colleyville</a><a href="/mobile-detailing-southlake-tx.html">Southlake</a><a href="/mobile-detailing-grapevine-tx.html">Grapevine</a><a href="/mobile-detailing-euless-tx.html">Euless</a><a href="/mobile-detailing-keller-tx.html">Keller</a><a href="/mobile-detailing-flower-mound-tx.html">Flower Mound</a><a href="/mobile-detailing-trophy-club-tx.html">Trophy Club</a><a href="/service-areas.html">All Locations</a></div></div>
+    <a class="md-link" href="/pricing.html">Pricing</a>
+    <a class="md-link" href="/our-work.html">Our Work</a>
+    <a class="md-link" href="/faq.html">FAQ</a>
+  </nav>
+  <div class="md-foot">
+    <a class="md-phone" href="tel:+16824179435"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>(682) 417-9435</a>
+    <a class="md-book" href="/book.html">Book Now</a>
+  </div>
+</aside>
 <header class="page-hero">
   <div class="wrap">
     <div class="crumbs"><a href="/">Home</a> / <span>Service Areas</span></div>
@@ -402,7 +454,15 @@ table.prices th { background: #111113; }
   var t=nav.querySelector(".hnav-toggle");
   function onScroll(){ nav.classList.toggle("scrolled", window.scrollY > 34); }
   window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
-  t.addEventListener("click", function(){ var o=document.body.classList.toggle("hnav-open"); t.setAttribute("aria-expanded", o); });
+  var dr=document.getElementById("mdrawer"), sc=document.querySelector(".md-scrim");
+  function openD(o){ if(!dr) return; if(o){ sc.hidden=false; dr.style.visibility="visible"; requestAnimationFrame(function(){ sc.classList.add("on"); dr.classList.add("on"); }); } else { sc.classList.remove("on"); dr.classList.remove("on"); setTimeout(function(){ if(!dr.classList.contains("on")){ sc.hidden=true; dr.style.visibility=""; } }, 300); }
+    document.body.classList.toggle("md-lock", o); dr.setAttribute("aria-hidden", !o); t.setAttribute("aria-expanded", o); }
+  t.addEventListener("click", function(){ openD(true); });
+  if(dr){ dr.querySelector(".md-close").addEventListener("click", function(){ openD(false); }); sc.addEventListener("click", function(){ openD(false); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape") openD(false); });
+    dr.querySelectorAll(".md-acc-btn").forEach(function(b){ b.addEventListener("click", function(){ var s=b.nextElementSibling, o=s.hidden; s.hidden=!o; b.setAttribute("aria-expanded", o); }); });
+    var p=location.pathname.replace(/\/index\.html$/,"/"); dr.querySelectorAll("a[href]").forEach(function(a){ if(a.getAttribute("href")===p){ a.classList.add("cur"); var s=a.closest(".md-sub"); if(s){ s.hidden=false; s.previousElementSibling.setAttribute("aria-expanded","true"); } } });
+    dr.querySelectorAll("a").forEach(function(a){ a.addEventListener("click", function(){ openD(false); }); }); }
   nav.querySelectorAll(".hnav-links a").forEach(function(a){ a.addEventListener("click", function(){ document.body.classList.remove("hnav-open"); t.setAttribute("aria-expanded","false"); }); });
 })();
 </script>
