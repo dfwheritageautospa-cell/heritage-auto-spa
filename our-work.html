@@ -272,24 +272,89 @@ table.prices th { background: #111113; }
 .nav-toggle span { background:#111113; }
 @media (max-width: 1500px) { .nav-links { background:#FFFFFF; border-bottom: 2px solid var(--red); box-shadow: 0 14px 30px rgba(17,17,19,0.12); } .nav-links li a { color:#111113; } }
 </style>
+<style>
+/* ===== header v2: transparent over the photo, centered, dropdowns ===== */
+.topbar { height: 34px; padding-top: 0; padding-bottom: 0; line-height: 34px; position: relative; z-index: 120; }
+.hnav { position: absolute; top: 34px; left: 0; right: 0; z-index: 110; background: linear-gradient(180deg, rgba(8,8,10,0.55), rgba(8,8,10,0)); transition: background .25s, box-shadow .25s; font-family: 'Inter', system-ui, sans-serif; }
+.hnav.scrolled { position: fixed; top: 0; background: rgba(18,18,20,0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+.hnav-in { max-width: 1240px; margin: 0 auto; height: 80px; padding-left: max(20px, env(safe-area-inset-left, 0px)); padding-right: max(20px, env(safe-area-inset-right, 0px)); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; }
+.hnav.scrolled .hnav-in { height: 68px; }
+.hnav-logo img { height: 58px; width: auto; display: block; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.4)); }
+.hnav-links { list-style: none; display: flex; align-items: center; gap: 4px; margin: 0; padding: 0; }
+.hnav-links > li { position: relative; }
+.hnav-links > li > a { display: inline-flex; align-items: center; gap: 5px; padding: 10px 14px; color: #F2F2F4; text-decoration: none; font-size: 15px; font-weight: 600; white-space: nowrap; border-radius: 999px; transition: color .2s, background .2s; }
+.hnav-links > li > a:hover, .dd:hover > a, .dd:focus-within > a { color: #FF4A50; }
+.hnav-links svg, .hnav-phone svg, .dd-ic svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.hnav-links .dd-top svg { width: 15px; height: 15px; transition: transform .2s; }
+.dd:hover .dd-top svg, .dd:focus-within .dd-top svg { transform: rotate(180deg); }
+.dd-menu { position: absolute; top: calc(100% + 6px); left: 50%; width: 290px; padding: 10px; background: #fff; border-radius: 22px; box-shadow: 0 22px 50px rgba(0,0,0,0.22); display: grid; gap: 2px; opacity: 0; visibility: hidden; transform: translate(-50%, 8px); transition: opacity .18s, transform .18s, visibility .18s; }
+.dd-menu.two { width: 520px; grid-template-columns: 1fr 1fr; }
+.dd-menu::before { content: ''; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.dd:hover .dd-menu, .dd:focus-within .dd-menu { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+.dd-menu a { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; text-decoration: none; color: #111113; }
+.dd-menu a:hover { background: #F5F5F7; }
+.dd-menu b { display: block; font-size: 15px; font-weight: 600; color: #111113; }
+.dd-menu small { display: block; font-size: 13px; color: #6B6C74; margin-top: 1px; }
+.dd-ic { width: 38px; height: 38px; flex: none; border-radius: 50%; background: #FDECEC; color: var(--red); display: grid; place-items: center; }
+.dd-ic svg { width: 18px; height: 18px; }
+.hnav-right { display: flex; align-items: center; justify-content: flex-end; gap: 10px; }
+.hnav-phone { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.35); color: #fff; text-decoration: none; font-size: 15px; font-weight: 600; white-space: nowrap; transition: border-color .2s, background .2s; }
+.hnav-phone svg { width: 16px; height: 16px; }
+.hnav-phone:hover { border-color: #fff; background: rgba(255,255,255,0.08); }
+.hnav-cta { padding: 12px 22px; border-radius: 999px; background: var(--red); color: #fff; text-decoration: none; font-size: 15px; font-weight: 600; white-space: nowrap; transition: background .2s; }
+.hnav-cta:hover { background: var(--red-bright); }
+.hnav-toggle { display: none; background: none; border: 0; padding: 8px; cursor: pointer; flex-direction: column; gap: 5px; }
+.hnav-toggle span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+.hnav a:focus-visible, .hnav button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+/* photo sits under the header */
+.hero { padding-top: 80px; }
+.page-hero { padding-top: 140px !important; }
+.booking-hero { padding-top: 136px !important; }
+@media (max-width: 1180px) {
+  .hnav-in { grid-template-columns: auto 1fr; }
+  .hnav-links { display: none; }
+  .hnav-phone { display: none; }
+  .hnav-toggle { display: flex; }
+  body.hnav-open .hnav-links { display: flex; position: absolute; top: 100%; left: 12px; right: 12px; flex-direction: column; align-items: stretch; gap: 0; padding: 10px; background: #fff; border-radius: 22px; box-shadow: 0 22px 50px rgba(0,0,0,0.25); max-height: calc(100vh - 140px); overflow-y: auto; }
+  body.hnav-open .hnav-links > li > a { color: #111113; padding: 12px 14px; border-radius: 14px; }
+  body.hnav-open .hnav-links .dd-top svg { display: none; }
+  body.hnav-open .dd-menu, body.hnav-open .dd-menu.two { position: static; opacity: 1; visibility: visible; transform: none; width: auto; box-shadow: none; padding: 0 0 6px 8px; grid-template-columns: 1fr; border-radius: 0; }
+  body.hnav-open .dd-menu a { padding: 8px 10px; }
+  body.hnav-open .dd-menu small { display: none; }
+  body.hnav-open .dd-ic { width: 32px; height: 32px; }
+  body.hnav-open .hnav { background: rgba(18,18,20,0.92); }
+}
+@media (max-width: 480px) { .hnav-cta { padding: 10px 16px; font-size: 14px; } .hnav-logo img { height: 52px; } .hnav-in { height: 72px; } .page-hero { padding-top: 124px !important; } .booking-hero { padding-top: 120px !important; } }
+@media (prefers-reduced-motion: reduce) { .hnav, .dd-menu, .dd-top svg { transition: none; } }
+</style>
+<style>
+/* logo sits right next to the menu */
+@media (min-width: 1181px) {
+  .hnav-in { display: flex; justify-content: center; gap: 22px; }
+  .hnav-right { margin-left: 18px; }
+}
+</style>
 </head>
 <body>
 
 <div class="topbar">Mobile detailing at your home or office &middot; 7-year ceramic coating &middot; Colleyville, Southlake &amp; Grapevine</div>
-<nav class="nav" id="navbar">
-  <a href="/" class="nav-logo" aria-label="Heritage Auto Spa home"><img class="badge" src="/logo.png" alt="Heritage Auto Spa" width="62" height="58"/></a>
-  <button class="nav-toggle" aria-label="Open menu" onclick="document.body.classList.toggle('menu-open')"><span></span><span></span><span></span></button>
-  <ul class="nav-links">
-    <li><a href="/mobile-detailing.html">Mobile Detailing</a></li>
-    <li><a href="/ceramic-coating.html">Ceramic Coating</a></li>
-    <li><a href="/paint-correction.html">Paint Correction</a></li>
-    <li><a href="/pricing.html">Pricing</a></li>
-    <li><a href="/our-work.html">Our Work</a></li>
-    <li><a href="/service-areas.html">Service Areas</a></li>
-    <li><a href="/faq.html">FAQ</a></li>
-    <li class="nav-phone"><a href="tel:+16824179435">(682) 417-9435</a></li>
-    <li><a href="/book.html" class="nav-cta">Book Now</a></li>
-  </ul>
+<nav class="hnav" id="navbar">
+  <div class="hnav-in">
+    <a href="/" class="hnav-logo" aria-label="Heritage Auto Spa home"><img src="/logo.png" alt="Heritage Auto Spa" width="62" height="58"/></a>
+    <ul class="hnav-links">
+      <li><a href="/">Home</a></li>
+      <li class="dd"><a href="/mobile-detailing.html" class="dd-top">Services <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></a><div class="dd-menu"><a href="/mobile-detailing.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16h14M6.5 16l1.4-4.6A2 2 0 0 1 9.8 10h4.4a2 2 0 0 1 1.9 1.4L17.5 16M5 16v2.5M19 16v2.5M8 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2zM16 19a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/></svg></span><span><b>Mobile Detailing</b><small>We come to you</small></span></a><a href="/ceramic-coating.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5z"/></svg></span><span><b>Ceramic Coating</b><small>7-year protection</small></span></a><a href="/paint-correction.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6.3 6.3l2.8 2.8M14.9 14.9l2.8 2.8M6.3 17.7l2.8-2.8M14.9 9.1l2.8-2.8"/></svg></span><span><b>Paint Correction</b><small>Remove swirls & haze</small></span></a><a href="/restoration-detailing.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.5-2.5z"/></svg></span><span><b>Heavy Condition Rescue</b><small>Stains, odors, pet hair</small></span></a><a href="/maintenance-plan.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14v13H5zM5 10h14M9 3.5v4M15 3.5v4"/></svg></span><span><b>Monthly Plan</b><small>Always freshly detailed</small></span></a></div></li>
+      <li class="dd"><a href="/service-areas.html" class="dd-top">Locations <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5"/></svg></a><div class="dd-menu two"><a href="/mobile-detailing-colleyville-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Colleyville</b><small>Home base</small></span></a><a href="/mobile-detailing-southlake-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Southlake</b><small>Tarrant County</small></span></a><a href="/mobile-detailing-grapevine-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Grapevine</b><small>Tarrant County</small></span></a><a href="/mobile-detailing-euless-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Euless</b><small>Tarrant County</small></span></a><a href="/mobile-detailing-keller-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Keller</b><small>Tarrant County</small></span></a><a href="/mobile-detailing-flower-mound-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Flower Mound</b><small>Denton County</small></span></a><a href="/mobile-detailing-trophy-club-tx.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6-5.6-6-10.5A6 6 0 0 1 18 10.5C18 15.4 12 21 12 21zM12 12.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span><span><b>Trophy Club</b><small>Roanoke & Westlake</small></span></a><a href="/service-areas.html"><span class="dd-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6.5l5-2 6 2 5-2v13l-5 2-6-2-5 2zM9 4.5v13M15 6.5v13"/></svg></span><span><b>All Locations</b><small>Every city we serve</small></span></a></div></li>
+      <li><a href="/pricing.html">Pricing</a></li>
+      <li><a href="/our-work.html">Our Work</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+    </ul>
+    <div class="hnav-right">
+      <a class="hnav-phone" href="tel:+16824179435"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5h3l1.5 4-2 1.3a11 11 0 0 0 6.1 6.1l1.3-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.6 5.7a2 2 0 0 1 2-2.2z"/></svg>(682) 417-9435</a>
+      <a class="hnav-cta" href="/book.html">Book Now</a>
+      <button class="hnav-toggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
 </nav>
 <header class="page-hero">
   <div class="wrap">
@@ -335,5 +400,15 @@ table.prices th { background: #111113; }
 <a class="sticky-book" href="/book.html">Book Your Detail</a>
 
 <script>document.querySelectorAll(".nav-links a").forEach(function(a){a.addEventListener("click",function(){document.body.classList.remove("menu-open");});});</script>
+<script>
+(function(){
+  var nav=document.getElementById("navbar"); if(!nav) return;
+  var t=nav.querySelector(".hnav-toggle");
+  function onScroll(){ nav.classList.toggle("scrolled", window.scrollY > 34); }
+  window.addEventListener("scroll", onScroll, {passive:true}); onScroll();
+  t.addEventListener("click", function(){ var o=document.body.classList.toggle("hnav-open"); t.setAttribute("aria-expanded", o); });
+  nav.querySelectorAll(".hnav-links a").forEach(function(a){ a.addEventListener("click", function(){ document.body.classList.remove("hnav-open"); t.setAttribute("aria-expanded","false"); }); });
+})();
+</script>
 </body>
 </html>
